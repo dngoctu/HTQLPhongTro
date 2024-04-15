@@ -1,0 +1,5 @@
+com\dnt\configs\DispatcherServeletInit.class
+com\dnt\configs\TilesConfig.class
+com\dnt\configs\WebAppContextConfig.class
+com\dnt\controllers\IndexController.class
+com\dnt\configs\HibernateConfig.class
