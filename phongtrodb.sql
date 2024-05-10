@@ -47,8 +47,8 @@ DROP TABLE IF EXISTS `chu_tro`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chu_tro` (
   `id` int NOT NULL,
-  `diaChi` varchar(100) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `sdt` varchar(12) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `diaChi` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `sdt` varchar(12) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_chuTro_taiKhoan` FOREIGN KEY (`id`) REFERENCES `tai_khoan` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
@@ -72,7 +72,7 @@ DROP TABLE IF EXISTS `comment`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comment` (
   `id` int NOT NULL,
-  `noiDung` longtext COLLATE utf8mb3_unicode_ci,
+  `noiDung` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
   `thoiGian` datetime DEFAULT NULL,
   `id_nguoiThue` int NOT NULL,
   `id_chuTro` int DEFAULT NULL,
@@ -130,7 +130,7 @@ DROP TABLE IF EXISTS `hinh_anh_tro`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `hinh_anh_tro` (
   `id` int NOT NULL,
-  `hinhAnh` longtext COLLATE utf8mb3_unicode_ci,
+  `hinhAnh` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
   `id_phongTro` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_hinhAnhTro_phongTro_idx` (`id_phongTro`),
@@ -156,8 +156,8 @@ DROP TABLE IF EXISTS `kinhdo_vido`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `kinhdo_vido` (
   `id` int NOT NULL,
-  `kinhDo` varchar(45) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `viDo` varchar(45) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `kinhDo` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `viDo` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `id_nguoiThue` int DEFAULT NULL,
   `id_phongTro` int DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -186,10 +186,10 @@ DROP TABLE IF EXISTS `nguoi_thue`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nguoi_thue` (
   `id` int NOT NULL,
-  `ho` varchar(45) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `ten` varchar(45) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `sdt` varchar(45) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `diaChi` varchar(100) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `ho` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `ten` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `sdt` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `diaChi` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_nguoiThue_taiKhoan` FOREIGN KEY (`id`) REFERENCES `tai_khoan` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
@@ -213,17 +213,17 @@ DROP TABLE IF EXISTS `phong_tro`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `phong_tro` (
   `id` int NOT NULL,
-  `diaChiPhong` varchar(100) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `diaChiPhong` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `gia` double DEFAULT NULL,
   `soNguoi` int DEFAULT NULL,
   `conTrong` tinyint DEFAULT NULL,
-  `id_thanhPho` int DEFAULT NULL,
+  `id_quan` int DEFAULT NULL,
   `id_chuTro` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_phongTro_thanhPho_idx` (`id_thanhPho`),
   KEY `fk_phongTro_chuTro_idx` (`id_chuTro`),
+  KEY `fk_phongTro_quan_idx` (`id_quan`),
   CONSTRAINT `fk_phongTro_chuTro` FOREIGN KEY (`id_chuTro`) REFERENCES `chu_tro` (`id`),
-  CONSTRAINT `fk_phongTro_thanhPho` FOREIGN KEY (`id_thanhPho`) REFERENCES `thanh_pho` (`id`)
+  CONSTRAINT `fk_phongTro_quan` FOREIGN KEY (`id_quan`) REFERENCES `quan_huyen` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -237,32 +237,6 @@ LOCK TABLES `phong_tro` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `phuong_xa`
---
-
-DROP TABLE IF EXISTS `phuong_xa`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `phuong_xa` (
-  `id` int NOT NULL,
-  `ten` varchar(45) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `id_quanHuyen` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_phuongXa_quanHuyen_idx` (`id_quanHuyen`),
-  CONSTRAINT `fk_phuongXa_quanHuyen` FOREIGN KEY (`id_quanHuyen`) REFERENCES `quan_huyen` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `phuong_xa`
---
-
-LOCK TABLES `phuong_xa` WRITE;
-/*!40000 ALTER TABLE `phuong_xa` DISABLE KEYS */;
-/*!40000 ALTER TABLE `phuong_xa` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `quan_huyen`
 --
 
@@ -271,7 +245,7 @@ DROP TABLE IF EXISTS `quan_huyen`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `quan_huyen` (
   `id` int NOT NULL,
-  `ten` varchar(45) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `ten` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `id_thanhPho` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_thanhPho_quanHuyen_idx` (`id_thanhPho`),
@@ -300,7 +274,7 @@ CREATE TABLE `tai_khoan` (
   `username` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `password` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `avatar` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
-  `vaiTro` varchar(45) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `vaiTro` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -323,7 +297,7 @@ DROP TABLE IF EXISTS `thanh_pho`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `thanh_pho` (
   `id` int NOT NULL,
-  `ten` varchar(45) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `ten` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -346,9 +320,9 @@ DROP TABLE IF EXISTS `tin`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tin` (
   `id` int NOT NULL,
-  `noiDung` longtext COLLATE utf8mb3_unicode_ci,
+  `noiDung` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
   `thoiGian` datetime DEFAULT NULL,
-  `loaiTin` varchar(45) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `loaiTin` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `id_comment` int DEFAULT NULL,
   `id_nguoiThue` int DEFAULT NULL,
   `id_chuTro` int DEFAULT NULL,
@@ -380,4 +354,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-15 11:22:54
+-- Dump completed on 2024-05-10 20:49:28
