@@ -7,6 +7,7 @@ package com.dnt.pojo;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -56,13 +57,13 @@ public class NguoiThue implements Serializable {
     @Column(name = "diaChi")
     private String diaChi;
     @OneToMany(mappedBy = "idnguoiThue")
-    private Set<Follow> followSet;
-    @OneToMany(mappedBy = "idnguoiThue")
     private Set<Tin> tinSet;
     @OneToMany(mappedBy = "idnguoiThue")
     private Set<KinhdoVido> kinhdoVidoSet;
-    @OneToMany(mappedBy = "idnguoiThue")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nguoiThue")
     private Set<Comment> commentSet;
+    @OneToMany(mappedBy = "idnguoiThue")
+    private Set<Follow> followSet;
     @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private TaiKhoan taiKhoan;
@@ -115,15 +116,6 @@ public class NguoiThue implements Serializable {
     }
 
     @XmlTransient
-    public Set<Follow> getFollowSet() {
-        return followSet;
-    }
-
-    public void setFollowSet(Set<Follow> followSet) {
-        this.followSet = followSet;
-    }
-
-    @XmlTransient
     public Set<Tin> getTinSet() {
         return tinSet;
     }
@@ -148,6 +140,15 @@ public class NguoiThue implements Serializable {
 
     public void setCommentSet(Set<Comment> commentSet) {
         this.commentSet = commentSet;
+    }
+
+    @XmlTransient
+    public Set<Follow> getFollowSet() {
+        return followSet;
+    }
+
+    public void setFollowSet(Set<Follow> followSet) {
+        this.followSet = followSet;
     }
 
     public TaiKhoan getTaiKhoan() {

@@ -43,8 +43,8 @@ public class QuanHuyen implements Serializable {
     @Size(max = 45)
     @Column(name = "ten")
     private String ten;
-    @OneToMany(mappedBy = "idquanHuyen")
-    private Set<PhuongXa> phuongXaSet;
+    @OneToMany(mappedBy = "idQuan")
+    private Set<PhongTro> phongTroSet;
     @JoinColumn(name = "id_thanhPho", referencedColumnName = "id")
     @ManyToOne
     private ThanhPho idthanhPho;
@@ -73,12 +73,12 @@ public class QuanHuyen implements Serializable {
     }
 
     @XmlTransient
-    public Set<PhuongXa> getPhuongXaSet() {
-        return phuongXaSet;
+    public Set<PhongTro> getPhongTroSet() {
+        return phongTroSet;
     }
 
-    public void setPhuongXaSet(Set<PhuongXa> phuongXaSet) {
-        this.phuongXaSet = phuongXaSet;
+    public void setPhongTroSet(Set<PhongTro> phongTroSet) {
+        this.phongTroSet = phongTroSet;
     }
 
     public ThanhPho getIdthanhPho() {

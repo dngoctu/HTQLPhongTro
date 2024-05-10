@@ -42,8 +42,6 @@ public class ThanhPho implements Serializable {
     @Column(name = "ten")
     private String ten;
     @OneToMany(mappedBy = "idthanhPho")
-    private Set<PhongTro> phongTroSet;
-    @OneToMany(mappedBy = "idthanhPho")
     private Set<QuanHuyen> quanHuyenSet;
 
     public ThanhPho() {
@@ -67,15 +65,6 @@ public class ThanhPho implements Serializable {
 
     public void setTen(String ten) {
         this.ten = ten;
-    }
-
-    @XmlTransient
-    public Set<PhongTro> getPhongTroSet() {
-        return phongTroSet;
-    }
-
-    public void setPhongTroSet(Set<PhongTro> phongTroSet) {
-        this.phongTroSet = phongTroSet;
     }
 
     @XmlTransient

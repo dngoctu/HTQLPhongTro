@@ -53,16 +53,16 @@ public class PhongTro implements Serializable {
     private Integer soNguoi;
     @Column(name = "conTrong")
     private Short conTrong;
-    @JoinColumn(name = "id_chuTro", referencedColumnName = "id")
-    @ManyToOne
-    private ChuTro idchuTro;
-    @JoinColumn(name = "id_thanhPho", referencedColumnName = "id")
-    @ManyToOne
-    private ThanhPho idthanhPho;
     @OneToMany(mappedBy = "idphongTro")
     private Set<HinhAnhTro> hinhAnhTroSet;
     @OneToMany(mappedBy = "idphongTro")
     private Set<KinhdoVido> kinhdoVidoSet;
+    @JoinColumn(name = "id_chuTro", referencedColumnName = "id")
+    @ManyToOne
+    private ChuTro idchuTro;
+    @JoinColumn(name = "id_quan", referencedColumnName = "id")
+    @ManyToOne
+    private QuanHuyen idQuan;
 
     public PhongTro() {
     }
@@ -111,22 +111,6 @@ public class PhongTro implements Serializable {
         this.conTrong = conTrong;
     }
 
-    public ChuTro getIdchuTro() {
-        return idchuTro;
-    }
-
-    public void setIdchuTro(ChuTro idchuTro) {
-        this.idchuTro = idchuTro;
-    }
-
-    public ThanhPho getIdthanhPho() {
-        return idthanhPho;
-    }
-
-    public void setIdthanhPho(ThanhPho idthanhPho) {
-        this.idthanhPho = idthanhPho;
-    }
-
     @XmlTransient
     public Set<HinhAnhTro> getHinhAnhTroSet() {
         return hinhAnhTroSet;
@@ -143,6 +127,22 @@ public class PhongTro implements Serializable {
 
     public void setKinhdoVidoSet(Set<KinhdoVido> kinhdoVidoSet) {
         this.kinhdoVidoSet = kinhdoVidoSet;
+    }
+
+    public ChuTro getIdchuTro() {
+        return idchuTro;
+    }
+
+    public void setIdchuTro(ChuTro idchuTro) {
+        this.idchuTro = idchuTro;
+    }
+
+    public QuanHuyen getIdQuan() {
+        return idQuan;
+    }
+
+    public void setIdQuan(QuanHuyen idQuan) {
+        this.idQuan = idQuan;
     }
 
     @Override

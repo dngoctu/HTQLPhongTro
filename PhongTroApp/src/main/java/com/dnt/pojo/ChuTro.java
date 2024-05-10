@@ -48,16 +48,16 @@ public class ChuTro implements Serializable {
     @Column(name = "sdt")
     private String sdt;
     @OneToMany(mappedBy = "idchuTro")
-    private Set<PhongTro> phongTroSet;
-    @OneToMany(mappedBy = "idchuTro")
-    private Set<Follow> followSet;
-    @OneToMany(mappedBy = "idchuTro")
     private Set<Tin> tinSet;
+    @OneToMany(mappedBy = "idchuTro")
+    private Set<PhongTro> phongTroSet;
     @OneToMany(mappedBy = "idchuTro")
     private Set<Comment> commentSet;
     @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private TaiKhoan taiKhoan;
+    @OneToMany(mappedBy = "idchuTro")
+    private Set<Follow> followSet;
 
     public ChuTro() {
     }
@@ -91,30 +91,21 @@ public class ChuTro implements Serializable {
     }
 
     @XmlTransient
-    public Set<PhongTro> getPhongTroSet() {
-        return phongTroSet;
-    }
-
-    public void setPhongTroSet(Set<PhongTro> phongTroSet) {
-        this.phongTroSet = phongTroSet;
-    }
-
-    @XmlTransient
-    public Set<Follow> getFollowSet() {
-        return followSet;
-    }
-
-    public void setFollowSet(Set<Follow> followSet) {
-        this.followSet = followSet;
-    }
-
-    @XmlTransient
     public Set<Tin> getTinSet() {
         return tinSet;
     }
 
     public void setTinSet(Set<Tin> tinSet) {
         this.tinSet = tinSet;
+    }
+
+    @XmlTransient
+    public Set<PhongTro> getPhongTroSet() {
+        return phongTroSet;
+    }
+
+    public void setPhongTroSet(Set<PhongTro> phongTroSet) {
+        this.phongTroSet = phongTroSet;
     }
 
     @XmlTransient
@@ -132,6 +123,15 @@ public class ChuTro implements Serializable {
 
     public void setTaiKhoan(TaiKhoan taiKhoan) {
         this.taiKhoan = taiKhoan;
+    }
+
+    @XmlTransient
+    public Set<Follow> getFollowSet() {
+        return followSet;
+    }
+
+    public void setFollowSet(Set<Follow> followSet) {
+        this.followSet = followSet;
     }
 
     @Override

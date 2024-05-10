@@ -7,10 +7,9 @@ package com.dnt.pojo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -20,7 +19,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -34,16 +32,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c"),
-    @NamedQuery(name = "Comment.findById", query = "SELECT c FROM Comment c WHERE c.id = :id"),
-    @NamedQuery(name = "Comment.findByThoiGian", query = "SELECT c FROM Comment c WHERE c.thoiGian = :thoiGian")})
+    @NamedQuery(name = "Comment.findById", query = "SELECT c FROM Comment c WHERE c.commentPK.id = :id"),
+    @NamedQuery(name = "Comment.findByThoiGian", query = "SELECT c FROM Comment c WHERE c.thoiGian = :thoiGian"),
+    @NamedQuery(name = "Comment.findByIdnguoiThue", query = "SELECT c FROM Comment c WHERE c.commentPK.idnguoiThue = :idnguoiThue")})
 public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "id")
-    private Integer id;
+    @EmbeddedId
+    protected CommentPK commentPK;
     @Lob
     @Size(max = 2147483647)
     @Column(name = "noiDung")
@@ -56,23 +52,27 @@ public class Comment implements Serializable {
     @JoinColumn(name = "id_chuTro", referencedColumnName = "id")
     @ManyToOne
     private ChuTro idchuTro;
-    @JoinColumn(name = "id_nguoiThue", referencedColumnName = "id")
-    @ManyToOne
-    private NguoiThue idnguoiThue;
+    @JoinColumn(name = "id_nguoiThue", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private NguoiThue nguoiThue;
 
     public Comment() {
     }
 
-    public Comment(Integer id) {
-        this.id = id;
+    public Comment(CommentPK commentPK) {
+        this.commentPK = commentPK;
     }
 
-    public Integer getId() {
-        return id;
+    public Comment(int id, int idnguoiThue) {
+        this.commentPK = new CommentPK(id, idnguoiThue);
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public CommentPK getCommentPK() {
+        return commentPK;
+    }
+
+    public void setCommentPK(CommentPK commentPK) {
+        this.commentPK = commentPK;
     }
 
     public String getNoiDung() {
@@ -108,18 +108,18 @@ public class Comment implements Serializable {
         this.idchuTro = idchuTro;
     }
 
-    public NguoiThue getIdnguoiThue() {
-        return idnguoiThue;
+    public NguoiThue getNguoiThue() {
+        return nguoiThue;
     }
 
-    public void setIdnguoiThue(NguoiThue idnguoiThue) {
-        this.idnguoiThue = idnguoiThue;
+    public void setNguoiThue(NguoiThue nguoiThue) {
+        this.nguoiThue = nguoiThue;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (commentPK != null ? commentPK.hashCode() : 0);
         return hash;
     }
 
@@ -130,7 +130,7 @@ public class Comment implements Serializable {
             return false;
         }
         Comment other = (Comment) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.commentPK == null && other.commentPK != null) || (this.commentPK != null && !this.commentPK.equals(other.commentPK))) {
             return false;
         }
         return true;
@@ -138,7 +138,7 @@ public class Comment implements Serializable {
 
     @Override
     public String toString() {
-        return "com.dnt.pojo.Comment[ id=" + id + " ]";
+        return "com.dnt.pojo.Comment[ commentPK=" + commentPK + " ]";
     }
     
 }
