@@ -51,11 +51,9 @@ public class ChuTro implements Serializable {
     private Set<Tin> tinSet;
     @OneToMany(mappedBy = "idchuTro")
     private Set<PhongTro> phongTroSet;
-    @OneToMany(mappedBy = "idchuTro")
-    private Set<Comment> commentSet;
-    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private TaiKhoan taiKhoan;
+    @JoinColumn(name = "id_taiKhoan", referencedColumnName = "id")
+    @OneToOne
+    private TaiKhoan idtaiKhoan;
     @OneToMany(mappedBy = "idchuTro")
     private Set<Follow> followSet;
 
@@ -108,21 +106,12 @@ public class ChuTro implements Serializable {
         this.phongTroSet = phongTroSet;
     }
 
-    @XmlTransient
-    public Set<Comment> getCommentSet() {
-        return commentSet;
+    public TaiKhoan getIdtaiKhoan() {
+        return idtaiKhoan;
     }
 
-    public void setCommentSet(Set<Comment> commentSet) {
-        this.commentSet = commentSet;
-    }
-
-    public TaiKhoan getTaiKhoan() {
-        return taiKhoan;
-    }
-
-    public void setTaiKhoan(TaiKhoan taiKhoan) {
-        this.taiKhoan = taiKhoan;
+    public void setIdtaiKhoan(TaiKhoan idtaiKhoan) {
+        this.idtaiKhoan = idtaiKhoan;
     }
 
     @XmlTransient

@@ -7,9 +7,10 @@ package com.dnt.pojo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -19,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -32,14 +34,16 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c"),
-    @NamedQuery(name = "Comment.findById", query = "SELECT c FROM Comment c WHERE c.commentPK.id = :id"),
-    @NamedQuery(name = "Comment.findByThoiGian", query = "SELECT c FROM Comment c WHERE c.thoiGian = :thoiGian"),
-    @NamedQuery(name = "Comment.findByIdnguoiThue", query = "SELECT c FROM Comment c WHERE c.commentPK.idnguoiThue = :idnguoiThue")})
+    @NamedQuery(name = "Comment.findById", query = "SELECT c FROM Comment c WHERE c.id = :id"),
+    @NamedQuery(name = "Comment.findByThoiGian", query = "SELECT c FROM Comment c WHERE c.thoiGian = :thoiGian")})
 public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected CommentPK commentPK;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id")
+    private Integer id;
     @Lob
     @Size(max = 2147483647)
     @Column(name = "noiDung")
@@ -49,30 +53,23 @@ public class Comment implements Serializable {
     private Date thoiGian;
     @OneToMany(mappedBy = "idComment")
     private Set<Tin> tinSet;
-    @JoinColumn(name = "id_chuTro", referencedColumnName = "id")
-    @ManyToOne
-    private ChuTro idchuTro;
-    @JoinColumn(name = "id_nguoiThue", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "id_taiKhoan", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private NguoiThue nguoiThue;
+    private TaiKhoan idtaiKhoan;
 
     public Comment() {
     }
 
-    public Comment(CommentPK commentPK) {
-        this.commentPK = commentPK;
+    public Comment(Integer id) {
+        this.id = id;
     }
 
-    public Comment(int id, int idnguoiThue) {
-        this.commentPK = new CommentPK(id, idnguoiThue);
+    public Integer getId() {
+        return id;
     }
 
-    public CommentPK getCommentPK() {
-        return commentPK;
-    }
-
-    public void setCommentPK(CommentPK commentPK) {
-        this.commentPK = commentPK;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNoiDung() {
@@ -100,26 +97,18 @@ public class Comment implements Serializable {
         this.tinSet = tinSet;
     }
 
-    public ChuTro getIdchuTro() {
-        return idchuTro;
+    public TaiKhoan getIdtaiKhoan() {
+        return idtaiKhoan;
     }
 
-    public void setIdchuTro(ChuTro idchuTro) {
-        this.idchuTro = idchuTro;
-    }
-
-    public NguoiThue getNguoiThue() {
-        return nguoiThue;
-    }
-
-    public void setNguoiThue(NguoiThue nguoiThue) {
-        this.nguoiThue = nguoiThue;
+    public void setIdtaiKhoan(TaiKhoan idtaiKhoan) {
+        this.idtaiKhoan = idtaiKhoan;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (commentPK != null ? commentPK.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -130,7 +119,7 @@ public class Comment implements Serializable {
             return false;
         }
         Comment other = (Comment) object;
-        if ((this.commentPK == null && other.commentPK != null) || (this.commentPK != null && !this.commentPK.equals(other.commentPK))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -138,7 +127,7 @@ public class Comment implements Serializable {
 
     @Override
     public String toString() {
-        return "com.dnt.pojo.Comment[ commentPK=" + commentPK + " ]";
+        return "com.dnt.pojo.Comment[ id=" + id + " ]";
     }
     
 }

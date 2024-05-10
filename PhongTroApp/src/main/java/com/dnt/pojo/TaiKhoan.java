@@ -5,6 +5,7 @@
 package com.dnt.pojo;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,11 +13,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -58,11 +61,13 @@ public class TaiKhoan implements Serializable {
     @Size(max = 45)
     @Column(name = "vaiTro")
     private String vaiTro;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "taiKhoan")
+    @OneToOne(mappedBy = "idtaiKhoan")
     private Admin admin;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "taiKhoan")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtaiKhoan")
+    private Set<Comment> commentSet;
+    @OneToOne(mappedBy = "idtaiKhoan")
     private ChuTro chuTro;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "taiKhoan")
+    @OneToOne(mappedBy = "idtaiKhoan")
     private NguoiThue nguoiThue;
 
     public TaiKhoan() {
@@ -125,6 +130,15 @@ public class TaiKhoan implements Serializable {
 
     public void setAdmin(Admin admin) {
         this.admin = admin;
+    }
+
+    @XmlTransient
+    public Set<Comment> getCommentSet() {
+        return commentSet;
+    }
+
+    public void setCommentSet(Set<Comment> commentSet) {
+        this.commentSet = commentSet;
     }
 
     public ChuTro getChuTro() {

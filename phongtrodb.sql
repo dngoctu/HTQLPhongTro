@@ -24,8 +24,11 @@ DROP TABLE IF EXISTS `admin`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `admin` (
   `id` int NOT NULL,
+  `id_taiKhoan` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_admin_taiKhoan` FOREIGN KEY (`id`) REFERENCES `tai_khoan` (`id`)
+  UNIQUE KEY `id_taiKhoan_UNIQUE` (`id_taiKhoan`),
+  KEY `fk_admin_taiKhoan_idx` (`id_taiKhoan`),
+  CONSTRAINT `fk_admin_taiKhoan` FOREIGN KEY (`id_taiKhoan`) REFERENCES `tai_khoan` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -49,8 +52,11 @@ CREATE TABLE `chu_tro` (
   `id` int NOT NULL,
   `diaChi` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `sdt` varchar(12) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `id_taiKhoan` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_chuTro_taiKhoan` FOREIGN KEY (`id`) REFERENCES `tai_khoan` (`id`)
+  UNIQUE KEY `id_taiKhoan_UNIQUE` (`id_taiKhoan`),
+  KEY `fk_chutro_taikhoan_idx` (`id_taiKhoan`),
+  CONSTRAINT `fk_chutro_taikhoan` FOREIGN KEY (`id_taiKhoan`) REFERENCES `tai_khoan` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -74,13 +80,10 @@ CREATE TABLE `comment` (
   `id` int NOT NULL,
   `noiDung` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
   `thoiGian` datetime DEFAULT NULL,
-  `id_nguoiThue` int NOT NULL,
-  `id_chuTro` int DEFAULT NULL,
-  PRIMARY KEY (`id`,`id_nguoiThue`),
-  KEY `fk_comment_chuTro_idx` (`id_chuTro`),
-  KEY `fk_comment_nguoiThue_idx` (`id_nguoiThue`),
-  CONSTRAINT `fk_comment_chuTro` FOREIGN KEY (`id_chuTro`) REFERENCES `chu_tro` (`id`),
-  CONSTRAINT `fk_comment_nguoiThue` FOREIGN KEY (`id_nguoiThue`) REFERENCES `nguoi_thue` (`id`)
+  `id_taiKhoan` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_comment_taiKhoan_idx` (`id_taiKhoan`),
+  CONSTRAINT `fk_comment_taiKhoan` FOREIGN KEY (`id_taiKhoan`) REFERENCES `tai_khoan` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -190,8 +193,10 @@ CREATE TABLE `nguoi_thue` (
   `ten` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `sdt` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `diaChi` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `id_taiKhoan` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_nguoiThue_taiKhoan` FOREIGN KEY (`id`) REFERENCES `tai_khoan` (`id`)
+  UNIQUE KEY `id_taiKhoan_UNIQUE` (`id_taiKhoan`),
+  CONSTRAINT `fk_nguoithue_taikhoan` FOREIGN KEY (`id_taiKhoan`) REFERENCES `tai_khoan` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -354,4 +359,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-10 20:49:28
+-- Dump completed on 2024-05-10 21:28:15

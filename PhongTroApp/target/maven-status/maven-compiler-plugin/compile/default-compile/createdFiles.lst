@@ -8,7 +8,6 @@ com\dnt\controllers\IndexController.class
 com\dnt\pojo\Comment_.class
 com\dnt\pojo\KinhdoVido_.class
 com\dnt\pojo\QuanHuyen.class
-com\dnt\pojo\CommentPK.class
 com\dnt\configs\DispatcherServeletInit.class
 com\dnt\pojo\Admin.class
 com\dnt\pojo\KinhdoVido.class
@@ -26,7 +25,6 @@ com\dnt\pojo\Tin_.class
 com\dnt\pojo\TaiKhoan.class
 com\dnt\pojo\ThanhPho_.class
 com\dnt\pojo\Comment.class
-com\dnt\pojo\CommentPK_.class
 com\dnt\pojo\Follow_.class
 com\dnt\pojo\HinhAnhTro.class
 com\dnt\pojo\ThanhPho.class

@@ -35,9 +35,9 @@ public class Admin implements Serializable {
     @NotNull
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private TaiKhoan taiKhoan;
+    @JoinColumn(name = "id_taiKhoan", referencedColumnName = "id")
+    @OneToOne
+    private TaiKhoan idtaiKhoan;
 
     public Admin() {
     }
@@ -54,12 +54,12 @@ public class Admin implements Serializable {
         this.id = id;
     }
 
-    public TaiKhoan getTaiKhoan() {
-        return taiKhoan;
+    public TaiKhoan getIdtaiKhoan() {
+        return idtaiKhoan;
     }
 
-    public void setTaiKhoan(TaiKhoan taiKhoan) {
-        this.taiKhoan = taiKhoan;
+    public void setIdtaiKhoan(TaiKhoan idtaiKhoan) {
+        this.idtaiKhoan = idtaiKhoan;
     }
 
     @Override

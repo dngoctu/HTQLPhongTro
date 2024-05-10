@@ -7,7 +7,6 @@ package com.dnt.pojo;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -60,13 +59,11 @@ public class NguoiThue implements Serializable {
     private Set<Tin> tinSet;
     @OneToMany(mappedBy = "idnguoiThue")
     private Set<KinhdoVido> kinhdoVidoSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nguoiThue")
-    private Set<Comment> commentSet;
     @OneToMany(mappedBy = "idnguoiThue")
     private Set<Follow> followSet;
-    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private TaiKhoan taiKhoan;
+    @JoinColumn(name = "id_taiKhoan", referencedColumnName = "id")
+    @OneToOne
+    private TaiKhoan idtaiKhoan;
 
     public NguoiThue() {
     }
@@ -134,15 +131,6 @@ public class NguoiThue implements Serializable {
     }
 
     @XmlTransient
-    public Set<Comment> getCommentSet() {
-        return commentSet;
-    }
-
-    public void setCommentSet(Set<Comment> commentSet) {
-        this.commentSet = commentSet;
-    }
-
-    @XmlTransient
     public Set<Follow> getFollowSet() {
         return followSet;
     }
@@ -151,12 +139,12 @@ public class NguoiThue implements Serializable {
         this.followSet = followSet;
     }
 
-    public TaiKhoan getTaiKhoan() {
-        return taiKhoan;
+    public TaiKhoan getIdtaiKhoan() {
+        return idtaiKhoan;
     }
 
-    public void setTaiKhoan(TaiKhoan taiKhoan) {
-        this.taiKhoan = taiKhoan;
+    public void setIdtaiKhoan(TaiKhoan idtaiKhoan) {
+        this.idtaiKhoan = idtaiKhoan;
     }
 
     @Override
