@@ -50,6 +50,8 @@ DROP TABLE IF EXISTS `chu_tro`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chu_tro` (
   `id` int NOT NULL,
+  `ho` varchar(60) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `ten` varchar(45) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `diaChi` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `sdt` varchar(12) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `id_taiKhoan` int DEFAULT NULL,
@@ -66,6 +68,7 @@ CREATE TABLE `chu_tro` (
 
 LOCK TABLES `chu_tro` WRITE;
 /*!40000 ALTER TABLE `chu_tro` DISABLE KEYS */;
+INSERT INTO `chu_tro` VALUES (1,'Tran Thi','D','19 Tran Phu','012548',3),(2,'Vo van','H','199/22 Phan the hien','0932466',4);
 /*!40000 ALTER TABLE `chu_tro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,6 +209,7 @@ CREATE TABLE `nguoi_thue` (
 
 LOCK TABLES `nguoi_thue` WRITE;
 /*!40000 ALTER TABLE `nguoi_thue` DISABLE KEYS */;
+INSERT INTO `nguoi_thue` VALUES (1,'Nguyen Van','A','0123456','29 hoang minh giam',1),(2,'Tran thi','B','0221144','124/2 Duong 15',2);
 /*!40000 ALTER TABLE `nguoi_thue` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -222,6 +226,8 @@ CREATE TABLE `phong_tro` (
   `gia` double DEFAULT NULL,
   `soNguoi` int DEFAULT NULL,
   `conTrong` tinyint DEFAULT NULL,
+  `ngayDang` datetime DEFAULT NULL,
+  `ngayCapNhat` datetime DEFAULT NULL,
   `id_quan` int DEFAULT NULL,
   `id_chuTro` int DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -290,6 +296,7 @@ CREATE TABLE `tai_khoan` (
 
 LOCK TABLES `tai_khoan` WRITE;
 /*!40000 ALTER TABLE `tai_khoan` DISABLE KEYS */;
+INSERT INTO `tai_khoan` VALUES (1,'nguoithue1','123',' ','2'),(2,'nguoithue2','123',' ','2'),(3,'chutro1','123',' ','1'),(4,'chutro2','123',' ','1');
 /*!40000 ALTER TABLE `tai_khoan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,4 +366,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-10 21:28:15
+-- Dump completed on 2024-05-17 21:24:47

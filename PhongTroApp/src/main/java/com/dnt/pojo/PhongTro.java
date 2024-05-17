@@ -5,6 +5,7 @@
 package com.dnt.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,6 +17,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -34,7 +37,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "PhongTro.findByDiaChiPhong", query = "SELECT p FROM PhongTro p WHERE p.diaChiPhong = :diaChiPhong"),
     @NamedQuery(name = "PhongTro.findByGia", query = "SELECT p FROM PhongTro p WHERE p.gia = :gia"),
     @NamedQuery(name = "PhongTro.findBySoNguoi", query = "SELECT p FROM PhongTro p WHERE p.soNguoi = :soNguoi"),
-    @NamedQuery(name = "PhongTro.findByConTrong", query = "SELECT p FROM PhongTro p WHERE p.conTrong = :conTrong")})
+    @NamedQuery(name = "PhongTro.findByConTrong", query = "SELECT p FROM PhongTro p WHERE p.conTrong = :conTrong"),
+    @NamedQuery(name = "PhongTro.findByNgayDang", query = "SELECT p FROM PhongTro p WHERE p.ngayDang = :ngayDang"),
+    @NamedQuery(name = "PhongTro.findByNgayCapNhat", query = "SELECT p FROM PhongTro p WHERE p.ngayCapNhat = :ngayCapNhat")})
 public class PhongTro implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,6 +58,12 @@ public class PhongTro implements Serializable {
     private Integer soNguoi;
     @Column(name = "conTrong")
     private Short conTrong;
+    @Column(name = "ngayDang")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date ngayDang;
+    @Column(name = "ngayCapNhat")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date ngayCapNhat;
     @OneToMany(mappedBy = "idphongTro")
     private Set<HinhAnhTro> hinhAnhTroSet;
     @OneToMany(mappedBy = "idphongTro")
@@ -109,6 +120,22 @@ public class PhongTro implements Serializable {
 
     public void setConTrong(Short conTrong) {
         this.conTrong = conTrong;
+    }
+
+    public Date getNgayDang() {
+        return ngayDang;
+    }
+
+    public void setNgayDang(Date ngayDang) {
+        this.ngayDang = ngayDang;
+    }
+
+    public Date getNgayCapNhat() {
+        return ngayCapNhat;
+    }
+
+    public void setNgayCapNhat(Date ngayCapNhat) {
+        this.ngayCapNhat = ngayCapNhat;
     }
 
     @XmlTransient

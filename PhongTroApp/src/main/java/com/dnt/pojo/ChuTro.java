@@ -31,6 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "ChuTro.findAll", query = "SELECT c FROM ChuTro c"),
     @NamedQuery(name = "ChuTro.findById", query = "SELECT c FROM ChuTro c WHERE c.id = :id"),
+    @NamedQuery(name = "ChuTro.findByHo", query = "SELECT c FROM ChuTro c WHERE c.ho = :ho"),
+    @NamedQuery(name = "ChuTro.findByTen", query = "SELECT c FROM ChuTro c WHERE c.ten = :ten"),
     @NamedQuery(name = "ChuTro.findByDiaChi", query = "SELECT c FROM ChuTro c WHERE c.diaChi = :diaChi"),
     @NamedQuery(name = "ChuTro.findBySdt", query = "SELECT c FROM ChuTro c WHERE c.sdt = :sdt")})
 public class ChuTro implements Serializable {
@@ -41,6 +43,12 @@ public class ChuTro implements Serializable {
     @NotNull
     @Column(name = "id")
     private Integer id;
+    @Size(max = 60)
+    @Column(name = "ho")
+    private String ho;
+    @Size(max = 45)
+    @Column(name = "ten")
+    private String ten;
     @Size(max = 100)
     @Column(name = "diaChi")
     private String diaChi;
@@ -70,6 +78,22 @@ public class ChuTro implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getHo() {
+        return ho;
+    }
+
+    public void setHo(String ho) {
+        this.ho = ho;
+    }
+
+    public String getTen() {
+        return ten;
+    }
+
+    public void setTen(String ten) {
+        this.ten = ten;
     }
 
     public String getDiaChi() {

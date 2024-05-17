@@ -17,6 +17,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/" />">Trang chủ</a>
                 </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/nguoithue" />">Người thuê</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/chutro" />">Chủ trọ</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link text-success" href="<c:url value="/stats" />">Thống kê</a>
                 </li>

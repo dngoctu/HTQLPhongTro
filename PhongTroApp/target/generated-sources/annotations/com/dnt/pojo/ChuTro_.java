@@ -9,7 +9,7 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2024-05-10T21:27:35")
+@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2024-05-17T20:19:17")
 @StaticMetamodel(ChuTro.class)
 public class ChuTro_ { 
 
@@ -18,7 +18,9 @@ public class ChuTro_ {
     public static volatile SingularAttribute<ChuTro, String> sdt;
     public static volatile SetAttribute<ChuTro, Tin> tinSet;
     public static volatile SetAttribute<ChuTro, PhongTro> phongTroSet;
+    public static volatile SingularAttribute<ChuTro, String> ho;
     public static volatile SetAttribute<ChuTro, Follow> followSet;
     public static volatile SingularAttribute<ChuTro, Integer> id;
+    public static volatile SingularAttribute<ChuTro, String> ten;
 
 }
