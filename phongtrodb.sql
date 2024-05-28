@@ -54,6 +54,7 @@ CREATE TABLE `chu_tro` (
   `ten` varchar(45) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `diaChi` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `sdt` varchar(12) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `ngayTao` datetime DEFAULT NULL,
   `id_taiKhoan` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_taiKhoan_UNIQUE` (`id_taiKhoan`),
@@ -68,7 +69,7 @@ CREATE TABLE `chu_tro` (
 
 LOCK TABLES `chu_tro` WRITE;
 /*!40000 ALTER TABLE `chu_tro` DISABLE KEYS */;
-INSERT INTO `chu_tro` VALUES (1,'Tran Thi','D','19 Tran Phu','012548423',3),(2,'Vo van','H','199/22 Phan the hien','0932466',4),(4,'demoChuTro','ChuTro','666, nguyen huu tho','098754221',14);
+INSERT INTO `chu_tro` VALUES (1,'Tran Thi','D','19 Tran Phu','012548423','2024-04-02 01:25:44',3),(2,'Vo van','H','199/22 Phan the hien','0932466','2024-05-02 01:25:44',4),(4,'demoChuTro','ChuTro','666, nguyen huu tho','098754221','2043-04-03 01:25:44',14);
 /*!40000 ALTER TABLE `chu_tro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,6 +201,7 @@ CREATE TABLE `nguoi_thue` (
   `ten` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `sdt` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `diaChi` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `ngayTao` datetime DEFAULT NULL,
   `id_taiKhoan` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_taiKhoan_UNIQUE` (`id_taiKhoan`),
@@ -213,7 +215,7 @@ CREATE TABLE `nguoi_thue` (
 
 LOCK TABLES `nguoi_thue` WRITE;
 /*!40000 ALTER TABLE `nguoi_thue` DISABLE KEYS */;
-INSERT INTO `nguoi_thue` VALUES (1,'Nguyen Van','A','012345644','29 hoang minh giam',1),(2,'Tran thi','B','0221144','124/2 Duong 15',2),(4,'Nguyen Hoang ','Uyen ','0188488','255-ngo tat to',5);
+INSERT INTO `nguoi_thue` VALUES (1,'Nguyen Van','A','012345644','29 hoang minh giam','2023-02-02 01:25:44',1),(2,'Tran thi','B','0221144','124/2 Duong 15','2023-12-02 01:25:44',2),(4,'Nguyen Hoang ','Uyen ','0188488','255-ngo tat to','2023-04-02 01:25:44',5);
 /*!40000 ALTER TABLE `nguoi_thue` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -376,4 +378,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-28 15:40:13
+-- Dump completed on 2024-05-28 17:01:02
