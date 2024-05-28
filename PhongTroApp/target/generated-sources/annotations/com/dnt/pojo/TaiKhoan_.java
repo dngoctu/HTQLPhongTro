@@ -1,22 +1,17 @@
 package com.dnt.pojo;
 
-import com.dnt.pojo.Admin;
 import com.dnt.pojo.ChuTro;
-import com.dnt.pojo.Comment;
 import com.dnt.pojo.NguoiThue;
 import javax.annotation.Generated;
-import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2024-05-17T20:19:17")
+@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2024-05-28T10:10:40")
 @StaticMetamodel(TaiKhoan.class)
 public class TaiKhoan_ { 
 
     public static volatile SingularAttribute<TaiKhoan, String> vaiTro;
     public static volatile SingularAttribute<TaiKhoan, String> password;
-    public static volatile SetAttribute<TaiKhoan, Comment> commentSet;
-    public static volatile SingularAttribute<TaiKhoan, Admin> admin;
     public static volatile SingularAttribute<TaiKhoan, NguoiThue> nguoiThue;
     public static volatile SingularAttribute<TaiKhoan, Integer> id;
     public static volatile SingularAttribute<TaiKhoan, String> avatar;

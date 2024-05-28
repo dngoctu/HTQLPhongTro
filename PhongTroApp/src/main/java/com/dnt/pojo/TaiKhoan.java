@@ -4,22 +4,27 @@
  */
 package com.dnt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -39,8 +44,8 @@ public class TaiKhoan implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
@@ -50,12 +55,12 @@ public class TaiKhoan implements Serializable {
     private String username;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 100)
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
+    @Size(min = 1, max = 100)
     @Column(name = "avatar")
     private String avatar;
     @Size(max = 45)
@@ -63,13 +68,19 @@ public class TaiKhoan implements Serializable {
     private String vaiTro;
     @OneToOne(mappedBy = "idtaiKhoan")
     private Admin admin;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idtaiKhoan")
+    @OneToMany(mappedBy = "idtaiKhoan")
+    @JsonIgnore
     private Set<Comment> commentSet;
     @OneToOne(mappedBy = "idtaiKhoan")
+    @JsonIgnore
     private ChuTro chuTro;
     @OneToOne(mappedBy = "idtaiKhoan")
+    @JsonIgnore
     private NguoiThue nguoiThue;
 
+    @Transient
+    private MultipartFile file;
+    
     public TaiKhoan() {
     }
 
@@ -180,6 +191,20 @@ public class TaiKhoan implements Serializable {
     @Override
     public String toString() {
         return "com.dnt.pojo.TaiKhoan[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
     
 }

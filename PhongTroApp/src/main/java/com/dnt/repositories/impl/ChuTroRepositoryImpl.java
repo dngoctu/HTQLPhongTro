@@ -53,7 +53,7 @@ public class ChuTroRepositoryImpl implements ChuTroRepository{
         }
         
         q.where(predicates.toArray(Predicate[]::new));
-        q.orderBy(b.asc(r.get("ten")));
+        q.orderBy(b.desc(r.get("id")));
 
         Query query = s.createQuery(q);
         
