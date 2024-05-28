@@ -14,11 +14,7 @@
     </form>
 </div >
 <div class="container mt-2" >
-    <button data-bs-toggle="collapse" data-bs-target="#demo" type="button" class="btn btn-warning" >Thêm chủ trọ</button>
-
-    <div id="demo" class="collapse">
-        Lorem ipsum dolor text....
-    </div>
+    <a class="btn btn-warning" href="<c:url value="/chutro/chutrodetails" />" >Thêm chủ trọ</a>
 </div>
 <c:forEach items="${chutro}" var="c">
     <div class="container mt-3">
@@ -26,6 +22,8 @@
             <p>Họ tên: ${c.ho} ${c.ten}, Số điện thoại: ${c.sdt}</p> 
             <p>Địa chỉ: ${c.diaChi}</p>
             <p>Tài khoản: ${c.idtaiKhoan.username}</p>
+             <c:url value="/chutro/chutrodetails/${c.id}" var="urlUpdate" />
+            <a href="${urlUpdate}" class="btn btn-info me-1">Cập nhật</a>
             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal${c.id}">
                 Xóa
             </button>
@@ -57,7 +55,7 @@
 <ul class="pagination mt-1">
     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
         <c:forEach begin="1" end="${(chutro.size() / pageSize) + 1}" var="pageNum">
-            <c:url value="/nguoithue/?page=${pageNum}" var="urlPage" />
+            <c:url value="/chutro/?page=${pageNum}" var="urlPage" />
         <li class="page-item"><a class="page-link" href="${urlPage}">${pageNum}</a></li>
         </c:forEach>
     <li class="page-item"><a class="page-link" href="#">Next</a></li>
@@ -71,7 +69,7 @@ function deleteChuTro(url) {
             if (res.status === 204)
                 location.reload();
             else
-                alert("Something wrong!");
+                alert("Xóa thất bại!");
             
         });
 }

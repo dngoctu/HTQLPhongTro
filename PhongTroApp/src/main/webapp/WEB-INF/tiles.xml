@@ -27,9 +27,24 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/nguoithue.jsp" />
     </definition>
+    <definition name="nguoithuedetails" extends="baseLayout">
+        <put-attribute name="title" value="Quản lí người thuê " />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/nguoithuedetails.jsp" />
+    </definition>
     <definition name="chutro" extends="baseLayout">
         <put-attribute name="title" value="Danh sách chủ trọ " />
         <put-attribute name="content"
                        value="/WEB-INF/pages/chutro.jsp" />
+    </definition>
+    <definition name="chutrodetails" extends="baseLayout">
+        <put-attribute name="title" value="Quản lí chủ trọ " />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/chutrodetails.jsp" />
+    </definition>
+    <definition name="register" extends="baseLayout">
+        <put-attribute name="title" value="Đăng kí " />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/register.jsp" />
     </definition>
 </tiles-definitions>

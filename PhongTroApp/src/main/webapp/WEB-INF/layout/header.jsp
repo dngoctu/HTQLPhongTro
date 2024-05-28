@@ -17,19 +17,40 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/" />">Trang chủ</a>
                 </li>
-                 <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/nguoithue" />">Người thuê</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/chutro" />">Chủ trọ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-success" href="<c:url value="/stats" />">Thống kê</a>
-                </li>
+                <c:choose>
+                    <c:when test="${pageContext.request.userPrincipal.name == null}">
+                        <li>
+                            <a class="nav-link text-success" href="<c:url value="/login" />">Đăng nhập</a>
+                        </li>
+                    </c:when>
+                    <c:when test="${pageContext.request.userPrincipal.getAuthorities()[0] == 'ROLE_ADMIN' }">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/nguoithue" />">Người thuê</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/chutro" />">Chủ trọ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning" href="<c:url value="/register" />">Tạo tài khoản</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-success">Xin chào ${pageContext.request.userPrincipal.name} !</a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-danger" href="<c:url value="/logout" />">Đăng xuất</a>
+                        </li>
+                    </c:when>
+                    <c:when test="${pageContext.request.userPrincipal.name != null}">
+                        <li>
+                            <a class="nav-link text-danger" href="<c:url value="/logout" />">Đăng xuất</a>
+                        </li>
+                    </c:when>
+                        
+            </c:choose>
             </ul>
             <form action="<c:url value="/" />" class="d-flex">
-            <input class="form-control me-2" name="kw" type="text" placeholder="Nhập tên...">
-            <button class="btn btn-primary" type="submit">Tìm</button>
+                <input class="form-control me-2" name="kw" type="text" placeholder="Nhập tên...">
+                <button class="btn btn-primary" type="submit">Tìm</button>
             </form>
         </div>
     </div>

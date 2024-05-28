@@ -4,11 +4,14 @@
  */
 package com.dnt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -18,7 +21,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -38,8 +40,8 @@ public class Tin implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "id")
     private Integer id;
     @Lob
@@ -61,6 +63,9 @@ public class Tin implements Serializable {
     @JoinColumn(name = "id_nguoiThue", referencedColumnName = "id")
     @ManyToOne
     private NguoiThue idnguoiThue;
+    @JoinColumn(name = "id_phongTro", referencedColumnName = "id")
+    @ManyToOne
+    private PhongTro idphongTro;
 
     public Tin() {
     }
@@ -123,6 +128,14 @@ public class Tin implements Serializable {
 
     public void setIdnguoiThue(NguoiThue idnguoiThue) {
         this.idnguoiThue = idnguoiThue;
+    }
+
+    public PhongTro getIdphongTro() {
+        return idphongTro;
+    }
+
+    public void setIdphongTro(PhongTro idphongTro) {
+        this.idphongTro = idphongTro;
     }
 
     @Override

@@ -3,18 +3,18 @@
   <persistence-unit name="com.dnt_PhongTroApp_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.dnt.pojo.PhuongXa</class>
-    <class>com.dnt.pojo.Tin</class>
     <class>com.dnt.pojo.Follow</class>
     <class>com.dnt.pojo.Comment</class>
     <class>com.dnt.pojo.Admin</class>
     <class>com.dnt.pojo.HinhAnhTro</class>
-    <class>com.dnt.pojo.ChuTro</class>
     <class>com.dnt.pojo.ThanhPho</class>
-    <class>com.dnt.pojo.TaiKhoan</class>
     <class>com.dnt.pojo.PhongTro</class>
     <class>com.dnt.pojo.KinhdoVido</class>
     <class>com.dnt.pojo.QuanHuyen</class>
+    <class>com.dnt.pojo.ChuTro</class>
     <class>com.dnt.pojo.NguoiThue</class>
+    <class>com.dnt.pojo.TaiKhoan</class>
+    <class>com.dnt.pojo.Tin</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/phongtrodb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

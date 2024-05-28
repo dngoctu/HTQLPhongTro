@@ -14,37 +14,15 @@
     </form>
 </div >
 <div class="container mt-2" >
-    <button data-bs-toggle="collapse" data-bs-target="#demo" type="button" class="btn btn-warning" >Thêm người thuê</button>
-
-    <div id="demo" class="collapse">
-        <c:url value="/nguoithue" var="action" />
-        <form method="post" action="${action}" modelAttribute="nguoithue" enctype="multipart/form-data">
-            <errors path="*" element="div" cssClass="alert alert-danger" />
-            <div class="form-floating mb-3 mt-3">
-                <input type="text" class="form-control" path="ho" id="ho" placeholder="Nhập họ..." name="ho" />
-                <label for="ho">Họ: </label>
-            </div>
-            <div class="form-floating mb-3 mt-3">
-                <input type="text" class="form-control" path="ten" id="ten" placeholder="Nhập tên..." name="ten" />
-                <label for="ten">Tên: </label>
-            </div>
-            <div class="form-floating mb-3 mt-3">
-                <input type="text" class="form-control" path="sdt" id="sdt" placeholder="Nhập số điện thoại..." name="sdt" />
-                <label for="sdt">SĐT: </label>
-            </div>
-            <div class="form-floating mb-3 mt-3">
-                <input type="text" class="form-control" path="diachi" id="diachi" placeholder="Nhập địa chỉ..." name="diachi" />
-                <label for="diachi">Địa chỉ: </label>
-            </div>
-        </form>
-    </div>
-</div>
+    <a class="btn btn-warning" href="<c:url value="/nguoithue/nguoithuedetails" />" >Thêm người thuê</a>
 <c:forEach items="${nguoithue}" var="n">
     <div class="container mt-3">
         <div class="mt-4 p-2 bg-success text-white rounded">
             <p>Họ tên: ${n.ho} ${n.ten}, Số điện thoại: ${n.sdt}</p> 
             <p>Địa chỉ: ${n.diaChi}</p>
             <p>Tài khoản: ${n.idtaiKhoan.username}</p>
+            <c:url value="/nguoithue/nguoithuedetails/${n.id}" var="urlUpdate" />
+            <a href="${urlUpdate}" class="btn btn-info me-1">Cập nhật</a>
             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal${n.id}">
                 Xóa
             </button>
@@ -86,7 +64,7 @@
             if (res.status === 204)
                 location.reload();
             else
-                alert("Something wrong!");
+                alert("Xóa thất bại!");
 
         });
     }
