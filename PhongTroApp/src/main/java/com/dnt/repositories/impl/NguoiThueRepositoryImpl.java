@@ -4,6 +4,7 @@ package com.dnt.repositories.impl;
 import com.dnt.pojo.NguoiThue;
 import com.dnt.repositories.NguoiThueRepository;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
@@ -79,6 +80,7 @@ public class NguoiThueRepositoryImpl implements NguoiThueRepository{
         if (n.getId() != null)
             s.update(n);
         else
+            n.setNgayTao(new Date());
             s.save(n);
     }
     @Override
