@@ -7,6 +7,7 @@ package com.dnt.repositories.impl;
 import com.dnt.pojo.ChuTro;
 import com.dnt.repositories.ChuTroRepository;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -78,6 +79,7 @@ public class ChuTroRepositoryImpl implements ChuTroRepository{
         if (c.getId() != null)
             s.update(c);
         else
+            c.setNgayTao(new Date());
             s.save(c);
     }
 

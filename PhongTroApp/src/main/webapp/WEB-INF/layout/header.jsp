@@ -36,6 +36,9 @@
                         <li>
                             <a class="nav-link text-success">Xin chào ${pageContext.request.userPrincipal.name} !</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-info" href="<c:url value="/stats" />">Thống kê</a>
+                        </li>
                         <li>
                             <a class="nav-link text-danger" href="<c:url value="/logout" />">Đăng xuất</a>
                         </li>

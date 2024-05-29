@@ -7,6 +7,7 @@ package com.dnt.repositories.impl;
 import com.dnt.pojo.Comment;
 import com.dnt.repositories.CommentRepository;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
@@ -16,6 +17,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,9 +29,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
+@PropertySource("classpath:configs.properties")
 public class CommentRepositoryImpl implements CommentRepository{
     @Autowired
     private LocalSessionFactoryBean factory;
+    @Autowired
+    private Environment env;
     
     @Override
     public List<Comment> getComment(Map<String, String> params) {
@@ -55,6 +61,14 @@ public class CommentRepositoryImpl implements CommentRepository{
 
         Query query = s.createQuery(q);
 
+        String p = params.get("page");
+        if (p != null && !p.isEmpty()) {
+            int pageSize = Integer.parseInt(env.getProperty("nguoithue.pageSize").toString());
+            int start = (Integer.parseInt(p) - 1) * pageSize;
+            query.setFirstResult(start);
+            query.setMaxResults(pageSize);
+        }
+        
         List<Comment> comments = query.getResultList();
         
         return comments;
@@ -66,6 +80,7 @@ public class CommentRepositoryImpl implements CommentRepository{
         if (c.getId() != null)
             s.update(c);
         else
+            c.setThoiGian(new Date());
             s.save(c);
     }
 

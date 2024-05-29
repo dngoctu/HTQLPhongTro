@@ -8,6 +8,7 @@ import com.dnt.pojo.Comment;
 import com.dnt.pojo.Tin;
 import com.dnt.repositories.TinRepository;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
@@ -17,6 +18,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,9 +30,12 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
+@PropertySource("classpath:configs.properties")
 public class TinRepositoryImpl implements TinRepository{
     @Autowired
     private LocalSessionFactoryBean factory;
+    @Autowired
+    private Environment env;
     
     @Override
     public List<Tin> getTin(Map<String, String> params) {
@@ -43,27 +49,19 @@ public class TinRepositoryImpl implements TinRepository{
 
         String loaiTin = params.get("loaitin");
         if (loaiTin != null && !loaiTin.isEmpty()) {
-            predicates.add(r.get("loaiTin").in(loaiTin));
+            predicates.add(b.like(r.get("loaiTin"), "%" + loaiTin + "%"));
         }
         
-        String idChutro = params.get("chutro");
-        if (idChutro != null && !idChutro.isEmpty()) {
-            try {
-                int chutroId = Integer.parseInt(idChutro);
-                predicates.add(b.equal(r.get("idchuTro").get("id"), chutroId));
-            } catch (NumberFormatException e) {
-                System.err.println("Invalid chutro ID format: " + idChutro);
-            }
+        String tenChutro = params.get("chutro");
+        if (tenChutro != null && !tenChutro.isEmpty()) {
+                predicates.add(b.like(b.concat((r.get("idchuTro").get("ho")+ " "), 
+                        r.get("idchuTro").get("ten")), "%" + tenChutro + "%"));
         }
         
-        String idNguoiThue = params.get("nguoithue");
-        if (idNguoiThue != null && !idNguoiThue.isEmpty()) {
-            try {
-                int nguoithueId = Integer.parseInt(idNguoiThue);
-                predicates.add(b.equal(r.get("idnguoiThue").get("id"), nguoithueId));
-            } catch (NumberFormatException e) {
-                System.err.println("Invalid nguoithue ID format: " + idNguoiThue);
-            }
+        String tenNguoiThue = params.get("nguoithue");
+        if (tenNguoiThue != null && !tenNguoiThue.isEmpty()) {
+            predicates.add(b.like(b.concat((r.get("idnguoiThue").get("ho")+ " "), 
+                        r.get("idnguoiThue").get("ten")), "%" + tenNguoiThue + "%"));
         }
         
 
@@ -72,6 +70,14 @@ public class TinRepositoryImpl implements TinRepository{
 
         Query query = s.createQuery(q);
 
+        String p = params.get("page");
+        if (p != null && !p.isEmpty()) {
+            int pageSize = Integer.parseInt(env.getProperty("nguoithue.pageSize").toString());
+            int start = (Integer.parseInt(p) - 1) * pageSize;
+            query.setFirstResult(start);
+            query.setMaxResults(pageSize);
+        }
+        
         List<Tin> tins = query.getResultList();
         
         return tins;
@@ -83,6 +89,7 @@ public class TinRepositoryImpl implements TinRepository{
         if (t.getId() != null)
             s.update(t);
         else
+            t.setThoiGian(new Date());
             s.save(t);}
 
     @Override

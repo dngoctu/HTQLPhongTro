@@ -5,6 +5,7 @@ D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\repositori
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\controllers\IndexController.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\services\ChuTroService.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\controllers\ApiTinController.java
+D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\services\impl\StatsServiceImpl.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\controllers\NguoiThueController.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\controllers\ApiTaiKhoanController.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\pojo\NguoiThue.java
@@ -17,6 +18,7 @@ D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\controller
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\pojo\Follow.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\configs\HibernateConfig.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\services\impl\CommentServiceImpl.java
+D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\repositories\StatsRepository.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\configs\WebAppContextConfig.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\pojo\ChuTro.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\controllers\ApiFollowController.java
@@ -39,10 +41,12 @@ D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\services\i
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\controllers\ApiCommentController.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\services\FollowService.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\configs\SpringSecurityConfig.java
+D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\services\StatsService.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\repositories\ChuTroRepository.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\pojo\Comment.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\services\impl\NguoiThueServiceImpl.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\configs\SecurityWebApplicationInitializer.java
+D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\repositories\impl\StatsRepositoryImpl.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\services\NguoiThueService.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\repositories\impl\PhongTroRepositoryImpl.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\services\impl\ChuTroServiceImpl.java
