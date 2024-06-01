@@ -3,10 +3,12 @@ D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\configs\Ti
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\repositories\CommentRepository.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\repositories\PhongTroRepository.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\controllers\IndexController.java
+D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\filters\RestAuthenticationEntryPoint.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\services\ChuTroService.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\controllers\ApiTinController.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\services\impl\StatsServiceImpl.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\controllers\NguoiThueController.java
+D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\filters\JwtAuthenticationTokenFilter.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\controllers\ApiTaiKhoanController.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\pojo\NguoiThue.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\repositories\impl\NguoiThueRepositoryImpl.java
@@ -33,6 +35,7 @@ D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\services\i
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\repositories\NguoiThueRepository.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\pojo\PhongTro.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\configs\DispatcherServeletInit.java
+D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\components\JwtService.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\repositories\FollowRepository.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\repositories\TinRepository.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\repositories\impl\TaiKhoanRepositoryImpl.java
@@ -48,6 +51,8 @@ D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\services\i
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\configs\SecurityWebApplicationInitializer.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\repositories\impl\StatsRepositoryImpl.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\services\NguoiThueService.java
+D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\configs\JwtSecurityConfig.java
+D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\filters\CustomAccessDeniedHandler.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\repositories\impl\PhongTroRepositoryImpl.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\services\impl\ChuTroServiceImpl.java
 D:\PhatTrienHeThongWeb\HTQLPhongTro\PhongTroApp\src\main\java\com\dnt\controllers\ApiNguoiThueController.java

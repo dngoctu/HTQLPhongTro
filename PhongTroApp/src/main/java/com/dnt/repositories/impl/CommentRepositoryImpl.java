@@ -37,41 +37,12 @@ public class CommentRepositoryImpl implements CommentRepository{
     private Environment env;
     
     @Override
-    public List<Comment> getComment(Map<String, String> params) {
+    public List<Comment> getComments(int id) {
         Session s = this.factory.getObject().getCurrentSession();
-        CriteriaBuilder b = s.getCriteriaBuilder();
-        CriteriaQuery<Comment> q = b.createQuery(Comment.class);
-        Root r = q.from(Comment.class);
-        q.select(r);
+        Query q = s.createQuery("From Comment Where idTin.id=:id ORDER BY id DESC");
+        q.setParameter("id", id);
         
-        List<Predicate> predicates = new ArrayList<>();
-
-        String idTaiKhoan = params.get("taikhoan");
-        if (idTaiKhoan != null && !idTaiKhoan.isEmpty()) {
-            try {
-                int taiKhoanId = Integer.parseInt(idTaiKhoan);
-                predicates.add(b.equal(r.get("idtaiKhoan").get("id"), taiKhoanId));
-            } catch (NumberFormatException e) {
-                System.err.println("Invalid taiKhoan ID format: " + idTaiKhoan);
-            }
-        }
-
-        q.where(predicates.toArray(Predicate[]::new));
-        q.orderBy(b.desc(r.get("id")));
-
-        Query query = s.createQuery(q);
-
-        String p = params.get("page");
-        if (p != null && !p.isEmpty()) {
-            int pageSize = Integer.parseInt(env.getProperty("nguoithue.pageSize").toString());
-            int start = (Integer.parseInt(p) - 1) * pageSize;
-            query.setFirstResult(start);
-            query.setMaxResults(pageSize);
-        }
-        
-        List<Comment> comments = query.getResultList();
-        
-        return comments;
+        return q.getResultList();
     }
 
     @Override

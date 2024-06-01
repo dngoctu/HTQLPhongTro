@@ -53,9 +53,9 @@ public class Comment implements Serializable {
     @Column(name = "thoiGian")
     @Temporal(TemporalType.TIMESTAMP)
     private Date thoiGian;
-    @OneToMany(mappedBy = "idComment")
-    @JsonIgnore
-    private Set<Tin> tinSet;
+    @JoinColumn(name = "id_tin", referencedColumnName = "id")
+    @ManyToOne
+    private Tin idTin;
     @JoinColumn(name = "id_taiKhoan", referencedColumnName = "id")
     @ManyToOne()
     private TaiKhoan idtaiKhoan;
@@ -90,14 +90,13 @@ public class Comment implements Serializable {
     public void setThoiGian(Date thoiGian) {
         this.thoiGian = thoiGian;
     }
-
-    @XmlTransient
-    public Set<Tin> getTinSet() {
-        return tinSet;
+    
+    public Tin getIdTin() {
+        return idTin;
     }
 
-    public void setTinSet(Set<Tin> tinSet) {
-        this.tinSet = tinSet;
+    public void setIdTin(Tin idTin) {
+        this.idTin = idTin;
     }
 
     public TaiKhoan getIdtaiKhoan() {
@@ -132,5 +131,7 @@ public class Comment implements Serializable {
     public String toString() {
         return "com.dnt.pojo.Comment[ id=" + id + " ]";
     }
+
+
     
 }

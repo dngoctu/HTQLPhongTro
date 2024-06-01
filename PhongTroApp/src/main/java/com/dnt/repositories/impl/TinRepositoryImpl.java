@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
@@ -54,14 +55,18 @@ public class TinRepositoryImpl implements TinRepository{
         
         String tenChutro = params.get("chutro");
         if (tenChutro != null && !tenChutro.isEmpty()) {
-                predicates.add(b.like(b.concat((r.get("idchuTro").get("ho")+ " "), 
-                        r.get("idchuTro").get("ten")), "%" + tenChutro + "%"));
+            Expression<String> fullName = b.concat(r.get("idchuTro").get("ho"), " ");
+            fullName = b.concat(fullName, r.get("idchuTro").get("ten"));
+
+            predicates.add(b.like(fullName, "%" + tenChutro + "%"));
         }
         
         String tenNguoiThue = params.get("nguoithue");
         if (tenNguoiThue != null && !tenNguoiThue.isEmpty()) {
-            predicates.add(b.like(b.concat((r.get("idnguoiThue").get("ho")+ " "), 
-                        r.get("idnguoiThue").get("ten")), "%" + tenNguoiThue + "%"));
+            Expression<String> fullName = b.concat(r.get("idnguoiThue").get("ho"), " ");
+            fullName = b.concat(fullName, r.get("idnguoiThue").get("ten"));
+
+            predicates.add(b.like(fullName, "%" + tenNguoiThue + "%"));
         }
         
 

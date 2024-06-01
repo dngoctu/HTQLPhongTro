@@ -5,8 +5,10 @@
 package com.dnt.pojo;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,11 +20,13 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -57,16 +61,12 @@ public class Tin implements Serializable {
     @JoinColumn(name = "id_chuTro", referencedColumnName = "id")
     @ManyToOne
     private ChuTro idchuTro;
-    @JoinColumn(name = "id_comment", referencedColumnName = "id")
-    @ManyToOne
-    private Comment idComment;
+    @OneToMany(mappedBy = "idTin")
+    @JsonIgnore
+    private Set<Comment> commentSet;
     @JoinColumn(name = "id_nguoiThue", referencedColumnName = "id")
     @ManyToOne
     private NguoiThue idnguoiThue;
-    @JoinColumn(name = "id_phongTro", referencedColumnName = "id")
-    @ManyToOne
-    private PhongTro idphongTro;
-
     public Tin() {
     }
 
@@ -114,12 +114,13 @@ public class Tin implements Serializable {
         this.idchuTro = idchuTro;
     }
 
-    public Comment getIdComment() {
-        return idComment;
+    @XmlTransient
+    public Set<Comment> getCommentSet() {
+        return commentSet;
     }
 
-    public void setIdComment(Comment idComment) {
-        this.idComment = idComment;
+    public void setCommentSet(Set<Comment> commentSet) {
+        this.commentSet = commentSet;
     }
 
     public NguoiThue getIdnguoiThue() {
@@ -128,14 +129,6 @@ public class Tin implements Serializable {
 
     public void setIdnguoiThue(NguoiThue idnguoiThue) {
         this.idnguoiThue = idnguoiThue;
-    }
-
-    public PhongTro getIdphongTro() {
-        return idphongTro;
-    }
-
-    public void setIdphongTro(PhongTro idphongTro) {
-        this.idphongTro = idphongTro;
     }
 
     @Override
@@ -162,5 +155,7 @@ public class Tin implements Serializable {
     public String toString() {
         return "com.dnt.pojo.Tin[ id=" + id + " ]";
     }
+
+    
     
 }

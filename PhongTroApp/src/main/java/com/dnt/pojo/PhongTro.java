@@ -71,9 +71,6 @@ public class PhongTro implements Serializable {
     private Set<HinhAnhTro> hinhAnhTroSet;
     @OneToMany(mappedBy = "idphongTro")
     @JsonIgnore
-    private Set<Tin> tinSet;
-    @OneToMany(mappedBy = "idphongTro")
-    @JsonIgnore
     private Set<KinhdoVido> kinhdoVidoSet;
     @JoinColumn(name = "id_chuTro", referencedColumnName = "id")
     @ManyToOne
@@ -154,14 +151,6 @@ public class PhongTro implements Serializable {
         this.hinhAnhTroSet = hinhAnhTroSet;
     }
 
-    @XmlTransient
-    public Set<Tin> getTinSet() {
-        return tinSet;
-    }
-
-    public void setTinSet(Set<Tin> tinSet) {
-        this.tinSet = tinSet;
-    }
 
     @XmlTransient
     public Set<KinhdoVido> getKinhdoVidoSet() {
