@@ -11,6 +11,7 @@ import javax.persistence.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class TaiKhoanRepositoryImpl implements TaiKhoanRepository{
     @Autowired
     private LocalSessionFactoryBean factory;
+    @Autowired
+    private BCryptPasswordEncoder passEncoder;
+    
+    @Override
+    public List<TaiKhoan> getTaiKhoan() {
+        Session s = this.factory.getObject().getCurrentSession();
+        Query q = s.createNamedQuery("TaiKhoan.findAll");
+        
+        return q.getResultList();
+    }
     
     @Override
     public TaiKhoan getTaiKhoanByUsername(String username) {
@@ -49,11 +60,9 @@ public class TaiKhoanRepositoryImpl implements TaiKhoanRepository{
     }
 
     @Override
-    public List<TaiKhoan> getTaiKhoan() {
-        Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createNamedQuery("TaiKhoan.findAll");
+    public boolean authTaiKhoan(String username, String password) {
+        TaiKhoan tk = this.getTaiKhoanByUsername(username);
         
-        return q.getResultList();
-    }
-    
+        return this.passEncoder.matches(password, tk.getPassword());
+    } 
 }

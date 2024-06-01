@@ -29,7 +29,7 @@ CREATE TABLE `admin` (
   UNIQUE KEY `id_taiKhoan_UNIQUE` (`id_taiKhoan`),
   KEY `fk_admin_taiKhoan_idx` (`id_taiKhoan`),
   CONSTRAINT `fk_admin_taiKhoan` FOREIGN KEY (`id_taiKhoan`) REFERENCES `tai_khoan` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,6 +38,7 @@ CREATE TABLE `admin` (
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
+INSERT INTO `admin` VALUES (1,7);
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,7 +61,7 @@ CREATE TABLE `chu_tro` (
   UNIQUE KEY `id_taiKhoan_UNIQUE` (`id_taiKhoan`),
   KEY `fk_chutro_taikhoan_idx` (`id_taiKhoan`),
   CONSTRAINT `fk_chutro_taikhoan` FOREIGN KEY (`id_taiKhoan`) REFERENCES `tai_khoan` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +70,7 @@ CREATE TABLE `chu_tro` (
 
 LOCK TABLES `chu_tro` WRITE;
 /*!40000 ALTER TABLE `chu_tro` DISABLE KEYS */;
-INSERT INTO `chu_tro` VALUES (1,'Tran Thi','D','19 Tran Phu','012548423','2024-04-02 01:25:44',3),(2,'Vo van','H','199/22 Phan the hien','0932466','2024-05-02 01:25:44',4),(4,'demoChuTro','ChuTro','666, nguyen huu tho','098754221','2043-04-03 01:25:44',14);
+INSERT INTO `chu_tro` VALUES (1,'Tran Thi','D','19 Tran Phu','012548423','2024-04-02 01:25:44',3),(2,'Vo van','H','199/22 Phan the hien','0932466','2024-05-02 01:25:44',4),(4,'demoChuTro','ChuTro','666, nguyen huu tho','098754221','2024-04-03 01:25:44',14),(8,'Ho Thi','Nguyet','225/11 duong so 7, phuong 7, go vap','0641355','2024-05-31 16:32:16',30);
 /*!40000 ALTER TABLE `chu_tro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,10 +86,13 @@ CREATE TABLE `comment` (
   `noiDung` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
   `thoiGian` datetime DEFAULT NULL,
   `id_taiKhoan` int DEFAULT NULL,
+  `id_tin` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_comment_taiKhoan_idx` (`id_taiKhoan`),
-  CONSTRAINT `fk_comment_taiKhoan` FOREIGN KEY (`id_taiKhoan`) REFERENCES `tai_khoan` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  KEY `fk_comment_tin_idx` (`id_tin`),
+  CONSTRAINT `fk_comment_taiKhoan` FOREIGN KEY (`id_taiKhoan`) REFERENCES `tai_khoan` (`id`),
+  CONSTRAINT `fk_comment_tin` FOREIGN KEY (`id_tin`) REFERENCES `tin` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +101,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,'Noi dung super good','2023-04-02 01:25:44',1),(2,'Noi dung normal','2022-04-24 01:25:44',12),(3,'Noi dung bad','2023-04-24 01:25:44',5),(4,'Noi dung OKe','2024-07-11 16:22:44',7);
+INSERT INTO `comment` VALUES (1,'Noi dung super good','2023-04-02 01:25:44',1,1),(3,'Noi dung bad','2023-04-24 01:25:44',5,1),(4,'Noi dung OKe','2024-01-11 16:22:44',7,1),(10,'Qua tuyet voi','2024-05-31 20:52:50',5,2),(12,'abcccc','2024-06-01 08:08:58',5,2),(16,'First comment','2024-06-01 09:24:10',31,34),(18,'ssssss','2024-06-01 11:53:49',5,40),(21,'sssss','2024-06-01 11:55:30',31,40),(22,'Hays','2024-06-01 11:56:04',31,2),(23,'MY comment','2024-06-01 12:54:09',5,34),(24,'Con phong','2024-06-01 12:54:47',5,54),(25,'hohooh','2024-06-01 15:58:24',5,55);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,7 +210,7 @@ CREATE TABLE `nguoi_thue` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_taiKhoan_UNIQUE` (`id_taiKhoan`),
   CONSTRAINT `fk_nguoithue_taikhoan` FOREIGN KEY (`id_taiKhoan`) REFERENCES `tai_khoan` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,7 +219,7 @@ CREATE TABLE `nguoi_thue` (
 
 LOCK TABLES `nguoi_thue` WRITE;
 /*!40000 ALTER TABLE `nguoi_thue` DISABLE KEYS */;
-INSERT INTO `nguoi_thue` VALUES (1,'Nguyen Van','A','012345644','29 hoang minh giam','2023-02-02 01:25:44',1),(2,'Tran thi','B','0221144','124/2 Duong 15','2023-12-02 01:25:44',2),(4,'Nguyen Hoang ','Uyen ','0188488','255-ngo tat to','2023-04-02 01:25:44',5);
+INSERT INTO `nguoi_thue` VALUES (1,'Nguyen Van','A','012345644','29 hoang minh giam','2024-12-02 01:25:44',1),(2,'Tran thi','B','0221144','124/2 Duong 15','2024-12-02 01:25:44',2),(4,'Nguyen Hoang ','Uyen ','0188488','255-ngo tat to','2024-04-02 01:25:44',5),(7,'Pham Van','Hoang','01588444','241 ho hao hon','2024-05-31 16:33:45',31);
 /*!40000 ALTER TABLE `nguoi_thue` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -295,7 +299,7 @@ CREATE TABLE `tai_khoan` (
   `vaiTro` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -304,7 +308,7 @@ CREATE TABLE `tai_khoan` (
 
 LOCK TABLES `tai_khoan` WRITE;
 /*!40000 ALTER TABLE `tai_khoan` DISABLE KEYS */;
-INSERT INTO `tai_khoan` VALUES (1,'nguoithue1','123',' ','ROLE_NGUOITHUE'),(2,'nguoithue2','123',' ','ROLE_NGUOITHUE'),(3,'chutro1','123',' ','ROLE_CHUTRO'),(4,'chutro2','123',' ','ROLE_CHUTRO'),(5,'nguoithue3','$2a$10$zWrquoRJXnfOEF3qiaomne4V9pjDJOFFlquDQRPfE1QyA223BkjGy','https://res.cloudinary.com/dlfzoufof/image/upload/v1716041507/lprr9eagn61oc1vwwojx.jpg','ROLE_NGUOITHUE'),(7,'admin','$2a$10$YjNrM2dXMCGkdOTdINg/gu0w9CffW5SeREAh4/HI2lhmw4THtNKTK','https://res.cloudinary.com/dlfzoufof/image/upload/v1716078993/pa3ucytoz6ji2uhhoux6.png','ROLE_ADMIN'),(8,'test','$2a$10$QR1TRZCxqcCM4qBZtHrlL.sLFOpKW5S/viRT/YJ0eBh6tKn4K4qCO','https://res.cloudinary.com/dlfzoufof/image/upload/v1716079139/pi4pdwhzv7fcehgefxdb.png','ROLE_ADMIN'),(9,'test1','$2a$10$SZV2.YhV.fbJkvuhmlpNBeekNHVIgrhQNfjQAcww/m28rnT3nH8P.','https://res.cloudinary.com/dlfzoufof/image/upload/v1716079531/xabnhmdrb0vhikhwpcyg.png','ROLE_ADMIN'),(10,'demo1','$2a$10$C4qS1EE2Xik40FzLLt.xIORHw3YtnhrT9VggtfCHB.7EPyldPH2my','https://res.cloudinary.com/dlfzoufof/image/upload/v1716079705/wan1kcxm204qx1yz0b63.jpg','ROLE_CHUTRO'),(11,'abc','$2a$10$Bk.4YzHSF/zEQ4Gk8Sto3uQQQESNbmOrCxElYY4pBFyyxLGNusihm','https://res.cloudinary.com/dlfzoufof/image/upload/v1716079786/u9rtvdvdlsvt8s6xff7p.png','ROLE_ADMIN'),(12,'chutro3','$2a$10$DmTKnIx/mySVmDvniiowXejTyzZyW5ysNo63dPdolOTH1M/6zOaf6','https://res.cloudinary.com/dlfzoufof/image/upload/v1716728080/ispmvg8hdmuzkj1bdhzo.jpg','ROLE_CHUTRO'),(13,'abc','$2a$10$3BWZbJ.m7Z03sUAcGMUebuGHCnQx.JNfop8fjFjECPXuHfHYhzYR2','https://res.cloudinary.com/dlfzoufof/image/upload/v1716729107/sd8qzbowi4myjfhtcgmx.jpg','ROLE_ADMIN'),(14,'demochutro1','$2a$10$MQGGsO83GInMorTopYyaKegSKl4q759.f6AJ2qHDzbYvNFTNvscxa','https://res.cloudinary.com/dlfzoufof/image/upload/v1716882992/qsquvd3imq6vrgn6bve3.jpg','ROLE_CHUTRO'),(15,'demonguoithue1','$2a$10$1hO7A0L3Mdx03f7Rn6GhAe2oIXFlOnIeGQa8Y3QM85skHlCi/wAJu','https://res.cloudinary.com/dlfzoufof/image/upload/v1716883007/jr5ukspkjxm6p9fziwdl.jpg','ROLE_NGUOITHUE');
+INSERT INTO `tai_khoan` VALUES (1,'nguoithue1','123',' https://res.cloudinary.com/dlfzoufof/image/upload/v1716041507/lprr9eagn61oc1vwwojx.jpg','ROLE_NGUOITHUE'),(2,'nguoithue2','123','https://res.cloudinary.com/dlfzoufof/image/upload/v1717066765/trolisv_xvciqf.png','ROLE_NGUOITHUE'),(3,'chutro1','123','https://res.cloudinary.com/dlfzoufof/image/upload/v1717066765/trolisv_xvciqf.png','ROLE_CHUTRO'),(4,'chutro2','123',' https://res.cloudinary.com/dlfzoufof/image/upload/v1716041507/lprr9eagn61oc1vwwojx.jpg','ROLE_CHUTRO'),(5,'nguoithue3','$2a$10$zWrquoRJXnfOEF3qiaomne4V9pjDJOFFlquDQRPfE1QyA223BkjGy','https://res.cloudinary.com/dlfzoufof/image/upload/v1716041507/lprr9eagn61oc1vwwojx.jpg','ROLE_NGUOITHUE'),(7,'admin','$2a$10$YjNrM2dXMCGkdOTdINg/gu0w9CffW5SeREAh4/HI2lhmw4THtNKTK','https://res.cloudinary.com/dlfzoufof/image/upload/v1717066757/sv_hemka6.png','ROLE_ADMIN'),(14,'demochutro1','$2a$10$MQGGsO83GInMorTopYyaKegSKl4q759.f6AJ2qHDzbYvNFTNvscxa','https://res.cloudinary.com/dlfzoufof/image/upload/v1716041507/lprr9eagn61oc1vwwojx.jpg','ROLE_CHUTRO'),(30,'chutro4','$2a$10$TtCLLkspzcR0VvcCmGuqeOp6pVPuqV.mruPHMBi4AWae2SsxuOpkC','https://res.cloudinary.com/dlfzoufof/image/upload/v1717147936/orfmmzuda8iijl6fxhwt.png','ROLE_CHUTRO'),(31,'nguoithue4','$2a$10$uF96PDiiM5Wo/l4L0HSWEubk0bDiOKtUdQFLEVNw12udgLDf.7ccO','https://res.cloudinary.com/dlfzoufof/image/upload/v1717148025/m4lewk0bz5twur0ibnro.jpg','ROLE_NGUOITHUE');
 /*!40000 ALTER TABLE `tai_khoan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -343,20 +347,14 @@ CREATE TABLE `tin` (
   `noiDung` longtext CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci,
   `thoiGian` datetime DEFAULT NULL,
   `loaiTin` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `id_comment` int DEFAULT NULL,
   `id_nguoiThue` int DEFAULT NULL,
   `id_chuTro` int DEFAULT NULL,
-  `id_phongTro` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_tin_comment_idx` (`id_comment`),
   KEY `fk_tin_nguoiThue_idx` (`id_nguoiThue`),
   KEY `fk_tin_chuTro_idx` (`id_chuTro`),
-  KEY `fk_tin_phongTro_idx` (`id_phongTro`),
   CONSTRAINT `fk_tin_chuTro` FOREIGN KEY (`id_chuTro`) REFERENCES `chu_tro` (`id`),
-  CONSTRAINT `fk_tin_comment` FOREIGN KEY (`id_comment`) REFERENCES `comment` (`id`),
-  CONSTRAINT `fk_tin_nguoiThue` FOREIGN KEY (`id_nguoiThue`) REFERENCES `nguoi_thue` (`id`),
-  CONSTRAINT `fk_tin_phongTro` FOREIGN KEY (`id_phongTro`) REFERENCES `phong_tro` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  CONSTRAINT `fk_tin_nguoiThue` FOREIGN KEY (`id_nguoiThue`) REFERENCES `nguoi_thue` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -365,7 +363,7 @@ CREATE TABLE `tin` (
 
 LOCK TABLES `tin` WRITE;
 /*!40000 ALTER TABLE `tin` DISABLE KEYS */;
-INSERT INTO `tin` VALUES (1,'Phong tro cho thue gia re','2024-07-03 18:24:44','O ghep',2,NULL,1,1),(2,'Phong tro cho thue gia cao','2024-07-03 18:24:44','Thue moi',1,NULL,1,2);
+INSERT INTO `tin` VALUES (1,'Cần tìm người ở ghép trong tuần','2024-07-03 18:24:44','Ở ghép',NULL,1),(2,'Cho thuê phòng giá rẻ','2024-07-03 18:24:44','Phòng mới',NULL,2),(34,'<p>HOT HOT <em><u>HOT</u></em></p>','2024-06-01 09:20:18','Phòng mới',NULL,8),(38,'<p>sssssssssasd</p>','2024-06-01 10:29:08','Phòng mới',NULL,8),(40,'<p>11111111111111111111<span class=\"ql-size-huge\">hehehhe</span></p>','2024-06-01 10:33:03','Ở ghép',7,NULL),(53,'<p>Bai cua tui</p>','2024-06-01 11:56:25','Phòng mới',7,NULL),(54,'<p>Phong tro xin xo</p>','2024-06-01 12:54:26','Phòng mới',4,NULL),(55,'<p>Phong can nguoi don vao thang nay</p>','2024-06-01 15:58:16','Phòng mới',4,NULL);
 /*!40000 ALTER TABLE `tin` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -378,4 +376,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-28 17:01:02
+-- Dump completed on 2024-06-01 16:03:50

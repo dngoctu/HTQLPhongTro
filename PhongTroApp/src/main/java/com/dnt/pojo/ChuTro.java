@@ -6,7 +6,6 @@ package com.dnt.pojo;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -73,7 +72,6 @@ public class ChuTro implements Serializable {
     private Set<PhongTro> phongTroSet;
     @JoinColumn(name = "id_taiKhoan", referencedColumnName = "id")
     @OneToOne
-    @JsonBackReference
     private TaiKhoan idtaiKhoan;
     @OneToMany(mappedBy = "idchuTro")
     @JsonIgnore

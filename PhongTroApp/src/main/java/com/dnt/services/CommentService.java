@@ -13,7 +13,7 @@ import java.util.Map;
  * @author DikamonTu
  */
 public interface CommentService {
-    List<Comment> getComment(Map<String, String> params);
+    List<Comment> getComments(int id);
     void addOrUpdate(Comment c);
     Comment getCommentById(int id);
     void deleteComment(int id);

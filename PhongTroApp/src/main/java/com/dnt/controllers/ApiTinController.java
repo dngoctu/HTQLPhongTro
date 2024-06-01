@@ -46,12 +46,7 @@ public class ApiTinController {
     @Autowired
     private TinService tinService;
     @Autowired
-    private ChuTroService chuTroService;
-    @Autowired
-    private NguoiThueService nguoiThueService;
-    @Autowired
     private CommentService commentService;
-
     
     @GetMapping("/tin/")
     @CrossOrigin
@@ -60,17 +55,20 @@ public class ApiTinController {
     }
     
     @GetMapping(path = "/tin/{tinId}/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
     public ResponseEntity<Tin> retrieve(@PathVariable(value = "tinId") int id) {
         return new ResponseEntity<>(this.tinService.getTinById(id), HttpStatus.OK); 
     }
     
     @PostMapping(path = "/tin/")
+    @CrossOrigin
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody @Valid Tin tin) {
         this.tinService.addOrUpdate(tin);
     }
 
     @PatchMapping(path = "/tin/{tinId}/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable(value = "tinId") int tinId, @RequestBody @Valid Tin tin) {
         tin.setId(tinId);
@@ -79,8 +77,15 @@ public class ApiTinController {
     }
 
     @DeleteMapping("/tin/{tinId}/")
+    @CrossOrigin
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(Model model, @PathVariable(value = "tinId") int id) {
         this.tinService.deleteTin(id);
+    }
+    
+    @GetMapping("/tin/{tinId}/comment/")
+    @CrossOrigin
+    public ResponseEntity<List<Comment>> listComments(@PathVariable(value = "tinId") int id) {
+        return new ResponseEntity<>(this.commentService.getComments(id), HttpStatus.OK);
     }
 }

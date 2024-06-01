@@ -16,4 +16,5 @@ public interface TaiKhoanRepository {
     TaiKhoan getTaiKhoanByUsername(String username);
     TaiKhoan getTaiKhoanById(int id);
     void addTaiKhoan(TaiKhoan taikhoan);
+    boolean authTaiKhoan(String username, String password);
 }

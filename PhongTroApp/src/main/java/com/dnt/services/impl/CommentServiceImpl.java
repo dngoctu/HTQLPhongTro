@@ -22,8 +22,8 @@ public class CommentServiceImpl implements CommentService{
     private CommentRepository commentRepo;
 
     @Override
-    public List<Comment> getComment(Map<String, String> params) {
-        return this.commentRepo.getComment(params);
+    public List<Comment> getComments(int id){
+        return this.commentRepo.getComments(id);
     }
 
     @Override

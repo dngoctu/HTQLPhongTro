@@ -45,7 +45,6 @@ public class TaiKhoanServiceImpl implements TaiKhoanService{
     }
    
     
-    
     @Override
     public TaiKhoan getTaiKhoanByUsername(String username) {
         return this.taiKhoanRepo.getTaiKhoanByUsername(username);
@@ -82,5 +81,10 @@ public class TaiKhoanServiceImpl implements TaiKhoanService{
         }
         
         this.taiKhoanRepo.addTaiKhoan(taikhoan);
+    }
+
+    @Override
+    public boolean authTaiKhoan(String username, String password) {
+        return this.taiKhoanRepo.authTaiKhoan(username, password);
     }
 }

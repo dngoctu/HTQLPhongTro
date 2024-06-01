@@ -39,24 +39,21 @@ public class ApiCommentController {
     @Autowired
     private CommentService commentService;
     
-    @GetMapping("/comment/")
-    @CrossOrigin
-    public ResponseEntity<List<Comment>> list(@RequestParam Map<String, String> params) {
-        return new ResponseEntity<>(this.commentService.getComment(params), HttpStatus.OK);
-    }
-    
     @GetMapping(path = "/comment/{commentId}/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
     public ResponseEntity<Comment> retrieve(@PathVariable(value = "commentId") int id) {
         return new ResponseEntity<>(this.commentService.getCommentById(id), HttpStatus.OK); 
     }
     
     @PostMapping(path = "/comment/")
+    @CrossOrigin
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody @Valid Comment comment) {
         this.commentService.addOrUpdate(comment);
     }
 
     @PatchMapping(path = "/comment/{commentId}/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
     @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable(value = "commentId") int commentId, @RequestBody Map<String, Object> updates) {
         Comment currentComment = this.commentService.getCommentById(commentId);
@@ -78,6 +75,7 @@ public class ApiCommentController {
     }
 
     @DeleteMapping("/comment/{commentId}/")
+    @CrossOrigin
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(Model model, @PathVariable(value = "commentId") int id) {
         this.commentService.deleteComment(id);
