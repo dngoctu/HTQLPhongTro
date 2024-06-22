@@ -36,7 +36,7 @@ public class ChuTroController {
     @RequestMapping("/chutro")
     public String chuTroView(Model model,
             @RequestParam Map<String, String> params) {
-       int pageSize = Integer.parseInt(env.getProperty("nguoithue.pageSize").toString());
+        int pageSize = Integer.parseInt(env.getProperty("nguoithue.pageSize").toString());
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("chutro", this.chuTroService.getChuTro(params));
         return "chutro";

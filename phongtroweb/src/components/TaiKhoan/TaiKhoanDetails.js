@@ -6,7 +6,7 @@ import moment from 'moment';
 
 const TaiKhoanDetails = () => {
     const user = useContext(MyUserContext);
-    const [info, setInfo] = useState(null); // Sử dụng useState để quản lý trạng thái của info
+    const [info, setInfo] = useState(null); 
 
     const loadInfo = async () =>{
         try {
@@ -18,7 +18,7 @@ const TaiKhoanDetails = () => {
             }
 
             const matchedInfo = res.data.find(t => user.id === t.idtaiKhoan.id);
-            setInfo(matchedInfo); // Cập nhật trạng thái của info bằng setInfo
+            setInfo(matchedInfo); 
         } catch (error) {
             console.error(error);
         }
@@ -28,23 +28,21 @@ const TaiKhoanDetails = () => {
         loadInfo();
     }, []);
 
-    // Hiển thị loading hoặc message khi info chưa được load
-    if (info === null) {
-        return <Spinner animation="border" variant="primary" />;
-    }
-
     return (
         <Container>
-            <ListGroup>
+            {info == null ?<div className="d-flex justify-content-center">
+                <Spinner animation="border" variant="primary" className="container mt-2"/></div>:<>
+                <ListGroup>
             <Image src={user.avatar} style={{ display: 'block', margin: '0 auto 10px auto', width: "20%" }} 
                  className="rounded-circle" />
                 <ListGroup.Item>Tên đăng nhập: {user.username}</ListGroup.Item>
                 <ListGroup.Item>Vai trò: {user.vaiTro === "ROLE_NGUOITHUE" ? <b>Người thuê</b> : <b>Chủ trọ</b>}</ListGroup.Item>
+                <ListGroup.Item>Email: {user.email}</ListGroup.Item>
                 <ListGroup.Item>Họ tên: {info.ho} {info.ten}</ListGroup.Item>
                 <ListGroup.Item>Số điện thoại: {info.sdt}</ListGroup.Item>
                 <ListGroup.Item>Địa chỉ: {info.diaChi}</ListGroup.Item>
                 <ListGroup.Item>Ngày tham gia: {moment(info.ngayTao).format('DD/MM/YYYY')}</ListGroup.Item>
-            </ListGroup>
+            </ListGroup></>}
         </Container>
     );
 }

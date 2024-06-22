@@ -3,9 +3,11 @@ import { Card, Button, Col, Row, Spinner, Form, Modal } from "react-bootstrap";
 import APIs, { authApi, endpoints } from "../../configs/APIs";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { MyUserContext } from "../../configs/Contexts";
+import Moment from "react-moment";
+import BackToTop from "../Commons/BackToTop";
 
 const Home = () => {
-    const [tin, setTin] = useState(null);
+    const [tin, setTin] = useState([]);
     const [loading, setLoading] = useState(false);
     const [q,] = useSearchParams();
     const [page, setPage] = useState(1);
@@ -101,14 +103,13 @@ const Home = () => {
     return (
         <>
             <Form inline onSubmit={submit} className="container mt-1">
-                {loading && <Spinner animation="border" variant="primary" />}
                 <Row>
                     <Col>
-                        <Form.Control value={loaiTin} onChange={e => setLoaiTin(e.target.value)}
-                            type="text"
-                            placeholder="Loại tin ..."
-                            className="mr-sm-2 mt-1"
-                        />
+                        <Form.Select aria-label="Default select example" value={loaiTin} onChange={e => setLoaiTin(e.target.value)}>
+                            <option value="">Tất cả</option>
+                            <option value="Phòng mới">Phòng mới</option>
+                            <option value="Ở ghép">Ở ghép</option>
+                        </Form.Select>
                         <Form.Control value={chuTro} onChange={e => setChuTro(e.target.value)}
                             type="text"
                             placeholder="Chủ trọ ..."
@@ -128,20 +129,22 @@ const Home = () => {
                 <Button type="submit" className="mt-1">Tìm kiếm</Button>
             </Form>
             <Row>
-                <Col md={5} xs={17} className='mt-2 container-fluid'>
-                    {tin === null ? <Spinner animation="border" variant="primary" /> : <>
+                <Col md="5" xs="17" className='mt-2 container-fluid'>
+                    {loading && <div className="d-flex justify-content-center">
+                        <Spinner animation="border" variant="primary" className="container mt-2"/></div>}
                         {tin.map(t => (
+                            <Link to={`/tin/${t.id}`}>
+                                        <Button className="m-1 w-100">
                             <Card className='mt-1' key={t.id}>
                                 <Card.Body>
                                     {(t.idchuTro !== null && t.idchuTro !== "") ?
-                                        <Card.Title>Người đăng: {t.idchuTro.ho} {t.idchuTro.ten} ({t.idchuTro.idtaiKhoan.username}) <p>Thời gian: {timeFormat(t.thoiGian)}</p></Card.Title>
+                                        <Card.Title>Người đăng: {t.idchuTro.ho} {t.idchuTro.ten} ({t.idchuTro.idtaiKhoan.username}) <p>Thời gian: {timeFormat(t.thoiGian)} (<Moment locale="vi" fromNow>{t.thoiGian}</Moment>)</p></Card.Title>
                                         : <>
-                                            <Card.Title>Người đăng: {t.idnguoiThue.ho} {t.idnguoiThue.ten} ({t.idnguoiThue.idtaiKhoan.username}) <p>Thời gian: {timeFormat(t.thoiGian)}</p></Card.Title>
+                                            <Card.Title>Người đăng: {t.idnguoiThue.ho} {t.idnguoiThue.ten} ({t.idnguoiThue.idtaiKhoan.username}) <p>Thời gian: {timeFormat(t.thoiGian)} (<Moment locale="vi" fromNow>{t.thoiGian}</Moment>)</p></Card.Title>
                                         </>}
-                                    <Card.Text><td dangerouslySetInnerHTML={{ __html: t.noiDung }}></td></Card.Text>
-                                    <Card.Text>Loại: {t.loaiTin}</Card.Text>
-                                    <Link to={`/tin/${t.id}`} className="nav-link">
-                                        <Button variant="success" className="m-1">Xem chi tiết</Button></Link>
+                                    <Card.Text class="mw-50"><td dangerouslySetInnerHTML={{ __html: t.noiDung }}></td></Card.Text>
+                                    <Card.Text className="text-primary fw-bold">Loại: {t.loaiTin}</Card.Text>
+                                    
                                     {t.idnguoiThue !== null ? <>
                                         {user !== null && t.idnguoiThue.idtaiKhoan.id === user.id &&
                                             <Button variant="danger" className="m-1" onClick={() => handleShow(t.id)}>Xóa</Button>}
@@ -165,14 +168,16 @@ const Home = () => {
                                     </Modal>
                                 </Card.Body>
                             </Card>
+                            </Button></Link>
                         ))}
-                    </>}
                 </Col>
             </Row>
-            {loading && page > 1 && <Spinner animation="border" variant="primary" />}
             <div className="text-center mt-2">
+            {(loading && page > 1) ? <Spinner animation="border" variant="primary" />:<>
                 <Button variant="success" onClick={loadMore}>Xem thêm...</Button>
+            </>}
             </div>
+            <BackToTop/>
         </>
     );
 }

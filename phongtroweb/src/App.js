@@ -13,6 +13,9 @@ import { useReducer } from 'react';
 import TaiKhoanReducer from './configs/TaiKhoanReducer';
 import cookie from "react-cookies";
 import TaiKhoanDetails from './components/TaiKhoan/TaiKhoanDetails';
+import PhongTro from './components/PhongTro/PhongTro';
+import ThemPhongTro from './components/PhongTro/ThemPhongTro';
+import CapNhatPhongTro from './components/PhongTro/CapNhatPhongTro';
 
 const App = () => {
   const [user, dispatch] = useReducer(TaiKhoanReducer, cookie.load("user")||null);
@@ -29,6 +32,10 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/taikhoan" element={<TaiKhoanDetails />} />
+            <Route path="/phongtro" element={<PhongTro />} />
+            <Route path="/themphongtro" element={<ThemPhongTro />} />
+            <Route path="/phongtro/:id" element={<CapNhatPhongTro />} />
+
           </Routes>
           <Footer />
         </MyDispatchContext.Provider>

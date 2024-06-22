@@ -66,6 +66,9 @@ public class TaiKhoan implements Serializable {
     @Size(max = 45)
     @Column(name = "vaiTro")
     private String vaiTro;
+    @Size(max = 50)
+    @Column(name = "email")
+    private String email;
     @OneToOne(mappedBy = "idtaiKhoan")
     private Admin admin;
     @OneToMany(mappedBy = "idtaiKhoan")
@@ -133,6 +136,14 @@ public class TaiKhoan implements Serializable {
 
     public void setVaiTro(String vaiTro) {
         this.vaiTro = vaiTro;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Admin getAdmin() {

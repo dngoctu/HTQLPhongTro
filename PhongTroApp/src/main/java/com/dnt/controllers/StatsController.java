@@ -25,6 +25,8 @@ public class StatsController {
     @GetMapping("/stats")
     public String statsView(Model model, @RequestParam Map<String, String> params) {
         String year = params.getOrDefault("year", String.valueOf(LocalDate.now().getYear()));
+        if (year.isEmpty())
+            year = String.valueOf(LocalDate.now().getYear());
         String period = params.getOrDefault("period", "MONTH");
         
         model.addAttribute("statsByNguoiThue", this.statsService.statsByNguoiThue());

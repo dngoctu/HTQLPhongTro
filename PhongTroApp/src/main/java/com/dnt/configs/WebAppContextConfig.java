@@ -70,6 +70,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         CommonsMultipartResolver resolver
                 = new CommonsMultipartResolver();
         resolver.setDefaultEncoding("UTF-8");
+        resolver.setMaxUploadSize(10485760);
         return resolver;
     }
     
@@ -77,5 +78,4 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new TaiKhoanFormatter());
     }
-
 }  

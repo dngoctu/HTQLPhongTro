@@ -7,6 +7,7 @@ package com.dnt.repositories.impl;
 import com.dnt.pojo.PhongTro;
 import com.dnt.repositories.PhongTroRepository;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
@@ -16,6 +17,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,13 +29,16 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
+@PropertySource("classpath:configs.properties")
 public class PhongTroRepositoryImpl implements PhongTroRepository{
     @Autowired
-    private LocalSessionFactoryBean factoryBean;
-
+    private LocalSessionFactoryBean factory;
+    @Autowired
+    private Environment env;
+    
     @Override
     public List<PhongTro> getPhongTro(Map<String, String> params) {
-        Session s = this.factoryBean.getObject().getCurrentSession();
+        Session s = this.factory.getObject().getCurrentSession();
         CriteriaBuilder b = s.getCriteriaBuilder();
         CriteriaQuery<PhongTro> q = b.createQuery(PhongTro.class);
         Root r = q.from(PhongTro.class);
@@ -60,30 +66,35 @@ public class PhongTroRepositoryImpl implements PhongTroRepository{
             predicates.add(b.equal(r.get("conTrong"), conTrong));
         }
 
-        String chuTroId = params.get("chuTroId");
-        if (chuTroId != null && !chuTroId.isEmpty()) {
-            predicates.add(b.equal(r.get("idchuTro"), Integer.parseInt(chuTroId)));
+        String soNguoi = params.get("soNguoi");
+        if (soNguoi != null && !soNguoi.isEmpty()) {
+            predicates.add(b.equal(r.get("soNguoi"), conTrong));
         }
         
-        String thanhPhoId = params.get("thanhPhoId");
+//        String chuTroId = params.get("chuTroId");
+//        if (chuTroId != null && !chuTroId.isEmpty()) {
+//            predicates.add(b.equal(r.get("idchuTro"), Integer.parseInt(chuTroId)));
+//        }
+        
+        String thanhPhoId = params.get("quanId");
         if (thanhPhoId != null && !thanhPhoId.isEmpty()) {
-            predicates.add(b.equal(r.get("idthanhPho"), Integer.parseInt(thanhPhoId)));
+            predicates.add(b.equal(r.get("idQuan"), Integer.parseInt(thanhPhoId)));
         }
                 
 
         q.where(predicates.toArray(Predicate[]::new));
         q.orderBy(b.desc(r.get("id")));
-
+        
         Query query = s.createQuery(q);
         
         
-//        String p = params.get("page");
-//        if (p != null && !p.isEmpty()) {
-//            int pageSize = Integer.parseInt(env.getProperty("products.pageSize").toString());
-//            int start = (Integer.parseInt(p) - 1) * pageSize;
-//            query.setFirstResult(start);
-//            query.setMaxResults(pageSize);
-//        }
+        String p = params.get("page");
+        if (p != null && !p.isEmpty()) {
+            int pageSize = Integer.parseInt(env.getProperty("phongtro.pageSize"));
+            int start = (Integer.parseInt(p) - 1) * pageSize;
+            query.setFirstResult(start);
+            query.setMaxResults(pageSize);
+        }
         
         List<PhongTro> phongTros = query.getResultList();
 
@@ -92,17 +103,27 @@ public class PhongTroRepositoryImpl implements PhongTroRepository{
 
     @Override
     public void addOrUpdate(PhongTro p) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Session s = this.factory.getObject().getCurrentSession();
+        if (p.getId() != null){
+            p.setNgayCapNhat(new Date());
+            s.update(p);
+        }
+        else{
+            p.setNgayDang(new Date());
+            s.save(p);
+        }
     }
 
     @Override
     public PhongTro getPhongTroById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(PhongTro.class, id);}
 
     @Override
     public void deletePhongTro(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Session s = this.factory.getObject().getCurrentSession();
+        PhongTro p = this.getPhongTroById(id);
+        s.delete(p);
     }
     
 }

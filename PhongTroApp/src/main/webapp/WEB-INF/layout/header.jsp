@@ -51,10 +51,10 @@
                         
             </c:choose>
             </ul>
-            <form action="<c:url value="/" />" class="d-flex">
+<!--            <form action="<c:url value="/" />" class="d-flex">
                 <input class="form-control me-2" name="kw" type="text" placeholder="Nhập tên...">
                 <button class="btn btn-primary" type="submit">Tìm</button>
-            </form>
+            </form>-->
         </div>
     </div>
 </nav>

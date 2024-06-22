@@ -52,4 +52,14 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/register.jsp" />
     </definition>
+    <definition name="phongtro" extends="baseLayout">
+        <put-attribute name="title" value="Quản lí phòng trọ" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/phongtro.jsp" />
+    </definition>
+    <definition name="hinhanhtro" extends="baseLayout">
+        <put-attribute name="title" value="Hình ảnh trọ" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/hinhanhtro.jsp" />
+    </definition>
 </tiles-definitions>

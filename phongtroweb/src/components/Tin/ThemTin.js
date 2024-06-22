@@ -1,5 +1,5 @@
 import { Button, Form, Spinner } from "react-bootstrap";
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import APIs, { authApi, endpoints } from "../../configs/APIs";
@@ -64,7 +64,7 @@ const ThemTin = () =>{
         <Form.Group className="mb-3" controlId="noidung">
             <Form.Label>Nội dung bài viết</Form.Label>
             <ReactQuill 
-            style={{ height: '100px' }}
+            style={{ height: '250px' }}
                     placeholder="Nhập nội dung ..."
                     value={noiDung}
                     onChange={e=> setNoiDung(e)}
