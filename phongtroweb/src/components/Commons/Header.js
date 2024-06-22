@@ -11,11 +11,11 @@ const Header = () => {
     return (
         <Navbar expand="lg" className="bg-info">
             <Container>
-                <Navbar.Brand><Link to="/" className="nav-link">Phòng trọ web</Link></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Link to="/" className="nav-link">Trang chủ</Link>                        
+                        <Link to="/" className="nav-link">Trang chủ</Link>  
+                        <Link to="/phongtro" className="nav-link">Phòng trọ</Link>                         
                     </Nav>
                 </Navbar.Collapse>
                 {user === null ? <>

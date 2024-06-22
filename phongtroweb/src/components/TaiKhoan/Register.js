@@ -8,6 +8,7 @@ const Register = () => {
         "username": "",
         "password": "",
         "vaitro": "ROLE_NGUOITHUE",
+        "email": "",
         "ho": "",
         "ten": "",
         "diaChi": "",
@@ -28,8 +29,9 @@ const Register = () => {
 
             for (let field in user) {
                 if (field !== "confirmPass") {
-                    if (field === "username" || field === "password" || field === "vaitro") {
+                    if (field === "username" || field === "password" || field === "vaitro" || field === "email" ) {
                         formTaiKhoan.append(field, user[field]);
+
                     } else {
                         formNguoiDung.append(field, user[field]);
                     }
@@ -38,8 +40,11 @@ const Register = () => {
             formTaiKhoan.append("file", avatar.current.files[0]);
             try {
                 setLoading(true);
+                console.info(formNguoiDung.get("diaChi"));
+                console.info(formTaiKhoan.get("email"));
+
                 let resTaiKhoan = await APIs.post(endpoints['register'], formTaiKhoan);
-                console.info(formNguoiDung);
+                
                 if (resTaiKhoan.status === 201) {
                     let resNguoiDung;
                     formNguoiDung.append("idtaiKhoan", resTaiKhoan.data.id); 
@@ -86,8 +91,6 @@ const Register = () => {
     <Container>
         <h1 className="text-center text-info mt-2">ĐĂNG KÝ NGƯỜI DÙNG</h1>
 
-        {err && <Alert variant="danger">{err}</Alert>}
-
         <Form onSubmit={register}>
             <Form.Group className="mb-3">
                 <Form.Label>Tên</Form.Label>
@@ -125,6 +128,10 @@ const Register = () => {
                 </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control value={user.email} onChange={(e) => change(e, "email")} type="email" placeholder="Email" required />
+            </Form.Group>
+            <Form.Group className="mb-3">
                 <Form.Label>Ảnh đại diện</Form.Label>
                 <Form.Control type="file" ref={avatar} />
             </Form.Group>
@@ -132,6 +139,7 @@ const Register = () => {
                 {loading ? <Spinner animation="border" variant="primary" /> : <Button variant="info" type="submit">Đăng ký</Button>}
             </Form.Group>
         </Form>
+        {err && <Alert variant="danger">{err}</Alert>}
     </Container>
     );
 }

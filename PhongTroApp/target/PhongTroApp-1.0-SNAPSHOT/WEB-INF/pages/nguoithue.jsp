@@ -48,12 +48,10 @@
 </c:forEach>
 
 <ul class="pagination mt-1">
-    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
         <c:forEach begin="1" end="${(nguoithue.size() / pageSize) + 1}" var="pageNum">
             <c:url value="/nguoithue/?page=${pageNum}" var="urlPage" />
         <li class="page-item"><a class="page-link" href="${urlPage}">${pageNum}</a></li>
         </c:forEach>
-    <li class="page-item"><a class="page-link" href="#">Next</a></li>
 </ul>
 
 <script>

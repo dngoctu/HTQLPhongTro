@@ -77,10 +77,20 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests().antMatchers("/api/follow/").permitAll();
         http.authorizeRequests().antMatchers("/api/follow/**").permitAll();
         http.authorizeRequests().antMatchers("/api/taikhoan/").permitAll();
+        http.authorizeRequests().antMatchers("/api/taikhoan/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/thanhpho/").permitAll();
+        http.authorizeRequests().antMatchers("/api/thanhpho/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/quanhuyen/").permitAll();
+        http.authorizeRequests().antMatchers("/api/quanhuyen/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/kinhdovido/").permitAll();
+        http.authorizeRequests().antMatchers("/api/kinhdovido/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/hinhanhtro/").permitAll();
+        http.authorizeRequests().antMatchers("/api/hinhanhtro/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/phongtro/").permitAll();
+        http.authorizeRequests().antMatchers("/api/phongtro/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/**/comment/").permitAll();
         http.antMatcher("/api/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_NGUOITHUE') or hasRole('ROLE_CHUTRO')")
                 .antMatchers(HttpMethod.POST, "/api/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_NGUOITHUE') or hasRole('ROLE_CHUTRO')")
                 .antMatchers(HttpMethod.DELETE, "/api/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_NGUOITHUE') or hasRole('ROLE_CHUTRO')").and()
                 .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)

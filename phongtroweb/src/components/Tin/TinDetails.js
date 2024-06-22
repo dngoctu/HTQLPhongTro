@@ -5,6 +5,7 @@ import { Alert, Button, Container, Form, Image, Modal, Spinner, Table } from "re
 import { MyUserContext } from "../../configs/Contexts";
 import Moment from "react-moment";
 import 'moment/locale/vi';
+import { RiUserFollowFill, RiUserUnfollowFill } from "react-icons/ri";
 
 const TinDetails = () => {
     const { id } = useParams();
@@ -24,21 +25,35 @@ const TinDetails = () => {
         setSelectedCommentId(commentId);
         setShow(true);
     };
+    const [follow, setFollow] = useState([]);
+    const [loadingFollow, setLoadingFollow] = useState(false);
 
     const loadTin = async () => {
         try {
-            let { data } = await APIs.get(endpoints['tindetails'](id));
-            setTin(data);
+            let res = await APIs.get(endpoints['tindetails'](id));
+            setTin(res.data);
         } catch (error) {
             console.error(error);
+        }
+    }
+
+    const loadFollow = async () => {
+        try {
+            setLoadingFollow(true);
+            let res = await APIs.get(endpoints['follow']);
+            setFollow(res.data);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoadingFollow(false);
         }
     }
 
     const loadComment = async () => {
         setLoadingComment(true);
         try {
-            let { data } = await APIs.get(endpoints['tincomment'](id));
-            setCommentList(data);
+            let res = await APIs.get(endpoints['tincomment'](id));
+            setCommentList(res.data);
         } catch (error) {
             console.error(error);
         } finally {
@@ -57,7 +72,7 @@ const TinDetails = () => {
                 "idTin": id
             });
             if (res.status === 201) {
-                loadComment();
+                await loadComment();
             }
             else
                 setErr("Có lỗi xảy ra!")
@@ -74,16 +89,55 @@ const TinDetails = () => {
             let res = await authApi().delete(`${endpoints['comment']}${idCommentDel}/`)
             if (res.status === 204) {
                 handleClose();
-                loadComment();
-        }
+                await loadComment();
+            }
         } catch (error) {
             console.error(error);
-        } finally{
+        } finally {
             setLoadingDelete(false);
 
         }
-        
     }
+
+    const postFollow = async (idchuTro) => {
+        try {
+            setLoadingFollow(true);
+            let idnguoiThue = 0;
+            let resNguoiThue = await APIs.get(endpoints['nguoithue'])
+            resNguoiThue.data.map(n => {
+                if (n.idtaiKhoan.id === user.id)
+                    idnguoiThue = n.id;
+            })
+
+            let resFollow = await authApi().post(endpoints['follow'], {
+                "idchuTro": idchuTro,
+                "idnguoiThue": idnguoiThue
+            });
+            if (resFollow.status === 201)
+                await loadFollow();
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoadingFollow(false);
+        }
+    }
+
+    const deleteFollow = async (idFollow) => {
+        try {
+            setLoadingFollow(true);
+            let res = await authApi().delete(`${endpoints['follow']}${idFollow}/`)
+            if (res.status === 204) {
+                await loadFollow();
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoadingFollow(false);
+        }
+    }
+    const currentFollow = () =>follow.find(f =>
+        f.idnguoiThue.idtaiKhoan.id === user.id && f.idchuTro.id === tin.idchuTro.id
+    );
 
     useEffect(() => {
         loadTin();
@@ -93,6 +147,9 @@ const TinDetails = () => {
         loadComment();
     }, []);
 
+    useEffect(() => {
+        loadFollow();
+    }, []);
     const timeFormat = (time) => {
         const moment = require('moment');
         const specificDate = moment(time);
@@ -101,8 +158,8 @@ const TinDetails = () => {
 
     return (
         <><Container>
-            {tin === null ? <Spinner animation="border" variant="primary" /> : <>
-
+            {tin === null ?<div className="d-flex justify-content-center">
+                <Spinner animation="border" variant="primary" className="container mt-2"/></div> : <>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
@@ -116,7 +173,26 @@ const TinDetails = () => {
                         <tr>
                             {tin.idchuTro !== null && tin.idchuTro !== "" ?
                                 <td><Image width="50" src={tin.idchuTro.idtaiKhoan.avatar} roundedCircle />
-                                    {tin.idchuTro.ho} {tin.idchuTro.ten}</td> :
+                                    {tin.idchuTro.ho} {tin.idchuTro.ten}
+                                    {user !== null && user.vaiTro === "ROLE_NGUOITHUE" && <>
+                                        {tin.idchuTro !== "" && tin.idchuTro !== null && user !== null && currentFollow() ? (loadingFollow ? (
+                                                <Spinner animation="border" variant="primary" />
+                                            ) : (
+                                                <Button variant="success" className="m-2" onClick={() => deleteFollow(currentFollow().id)}>
+                                                   {loadingFollow ? <Spinner animation="border" variant="primary" /> : <> Hủy theo dõi <RiUserUnfollowFill /></>} 
+                                                </Button>
+                                            )
+                                        ) : (loadingFollow ? (
+                                                <Spinner animation="border" variant="primary" />
+                                            ) : (
+                                                <Button variant="success" className="m-2" onClick={() => postFollow(tin.idchuTro.id)}>
+                                                {loadingFollow ? <Spinner animation="border" variant="primary" /> : <>Theo dõi <RiUserFollowFill /></>} 
+                                             </Button>
+                                            )   
+                                        )}
+
+                                    </>}
+                                </td> :
                                 <td><Image width="50" src={tin.idnguoiThue.idtaiKhoan.avatar} roundedCircle />
                                     {tin.idnguoiThue.ho} {tin.idnguoiThue.ten}</td>}
                             <td dangerouslySetInnerHTML={{ __html: tin.noiDung }}></td>
@@ -151,7 +227,8 @@ const TinDetails = () => {
                             <tbody>
                                 <tr>
                                     <td><Image width="30" src={c.idtaiKhoan.avatar} roundedCircle />
-                                        {c.idtaiKhoan.username}</td>
+                                        {c.idtaiKhoan.username}
+                                    </td>
                                     <td>{c.noiDung}</td>
                                     <td><Moment locale="vi" fromNow>{c.thoiGian}</Moment></td>
                                     <td>
@@ -161,7 +238,7 @@ const TinDetails = () => {
                                                 <Modal.Header closeButton>
                                                     <Modal.Title></Modal.Title>
                                                 </Modal.Header>
-                                                <Modal.Body>Bạn chắc chắn xóa tin này ? </Modal.Body>
+                                                <Modal.Body>Bạn chắc chắn xóa comment này ? </Modal.Body>
                                                 <Modal.Footer>
                                                     <Button variant="secondary" onClick={handleClose}>
                                                         Không

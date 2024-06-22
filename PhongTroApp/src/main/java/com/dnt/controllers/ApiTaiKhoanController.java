@@ -55,11 +55,13 @@ public class ApiTaiKhoanController {
         tk.setUsername(params.get("username"));
         tk.setPassword(this.passwordEncoder.encode(params.get("password")));
         tk.setVaiTro(params.get("vaitro"));
+        tk.setEmail(params.get("email"));
         if (file.length > 0)
             tk.setFile(file[0]);
         
         this.taiKhoanService.addTaiKhoan(tk);
         TaiKhoan createdTaiKhoan = this.taiKhoanService.getTaiKhoanById(tk.getId());
+        
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTaiKhoan);
     }
     

@@ -30,17 +30,12 @@ public class NguoiThueController {
 
     @Autowired
     private NguoiThueService nguoiThueService;
-    
-     @Autowired
-    private TaiKhoanService taiKhoanService;
      
     @Autowired
+    private TaiKhoanService taiKhoanService;
+    
+    @Autowired
     private Environment env;
-
-    @ModelAttribute
-    public void commonAttr(Model model) {
-        model.addAttribute("taiKhoan", this.taiKhoanService.getTaiKhoan());
-    }
     
     @RequestMapping("/nguoithue")
     public String nguoiThueView(Model model,

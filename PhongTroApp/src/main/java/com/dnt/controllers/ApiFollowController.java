@@ -43,18 +43,21 @@ public class ApiFollowController {
     }
     
     @GetMapping(path = "/follow/{followId}/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
     public ResponseEntity<Follow> retrieve(@PathVariable(value = "followId") int id) {
         return new ResponseEntity<>(this.followService.getFollowById(id), HttpStatus.OK); 
     }
     
     @PostMapping(path = "/follow/")
     @ResponseStatus(HttpStatus.CREATED)
+    @CrossOrigin
     public void create(@RequestBody @Valid Follow follow) {
         this.followService.addOrUpdate(follow);
     }
 
     @PatchMapping(path = "/follow/{followId}/", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
+    @CrossOrigin
     public void update(@PathVariable(value = "followId") int followId, @RequestBody @Valid Follow follow) {
         follow.setId(followId);
         this.followService.addOrUpdate(follow);
@@ -62,6 +65,7 @@ public class ApiFollowController {
 
     @DeleteMapping("/follow/{followId}/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @CrossOrigin
     public void delete(Model model, @PathVariable(value = "followId") int id) {
         this.followService.deleteFollow(id);
     }

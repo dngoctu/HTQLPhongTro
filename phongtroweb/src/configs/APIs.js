@@ -13,6 +13,10 @@ export const endpoints = {
     "nguoithue": "/api/nguoithue/",
     "chutro": "/api/chutro/",
     "comment": "/api/comment/",
+    "follow": "/api/follow/",
+    "phongtro": "/api/phongtro/",
+    "hinhanhtro": "/api/hinhanhtro/",
+    "quanhuyen": "/api/quanhuyen/",
 }
 
 export const authApi = () => {
